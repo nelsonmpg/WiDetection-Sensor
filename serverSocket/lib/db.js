@@ -104,6 +104,7 @@ module.exports.getsitelist = function (req, res) {
     return r.dbList().map({"db": r.row})
             .filter(r.row("db").ne("rethinkdb"))
             .filter(r.row("db").ne("user"))
+            .filter(r.row("db").ne("Prefix"))
             .run(conn)
             .finally(function () {
               conn.close();

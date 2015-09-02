@@ -27,7 +27,7 @@ module.exports.insertAntAp = function (valuesAp, client) {
                     "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12]) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13]),
                     "data": r.now().inTimezone("+01:00").toEpochTime(),
                     "Power": (valuesAp.length == 14) ? ((typeof valuesAp[7] == "undefined") ? "" : valuesAp[7]) : ((typeof valuesAp[8] == "undefined") ? "" : valuesAp[8]),
-                    "nameVendor": r.db(self.dbConfig.db).table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("")
+                    "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("")
                   }]
               },
       r.branch(
@@ -44,7 +44,7 @@ module.exports.insertAntAp = function (valuesAp, client) {
                             "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12]) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13]),
                             "data": r.now().inTimezone("+01:00").toEpochTime(),
                             "Power": (valuesAp.length == 14) ? ((typeof valuesAp[7] == "undefined") ? "" : valuesAp[7]) : ((typeof valuesAp[8] == "undefined") ? "" : valuesAp[8]),
-                            "nameVendor": r.db(self.dbConfig.db).table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("")
+                            "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("")
                           }, d)
                 })
               }),
@@ -58,7 +58,7 @@ module.exports.insertAntAp = function (valuesAp, client) {
                   "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12]) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13]),
                   "data": r.now().inTimezone("+01:00").toEpochTime(),
                   "Power": (valuesAp.length == 14) ? ((typeof valuesAp[7] == "undefined") ? "" : valuesAp[7]) : ((typeof valuesAp[8] == "undefined") ? "" : valuesAp[8]),
-                  "nameVendor": r.db(self.dbConfig.db).table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("")
+                  "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("")
                 })}));
     }, {nonAtomic: true}).run(conn)
             .finally(function () {

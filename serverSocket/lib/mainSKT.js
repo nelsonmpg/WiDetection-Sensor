@@ -30,8 +30,15 @@ var MainSKT = function () {
       "AntDisp": "nomeAntena",
       "AntAp": "nomeAntena",
       "ActiveAnt": "nomeAntena",
-      "tblPrefix": "prefix",
       "plantSite": "nomeAntena"
+    }
+  };
+
+  // RethinkDB database settings. Defaults can be overridden using environment variables.
+  this.dbConfigPrefix = {
+    db: 'Prefix',
+    tables: {
+      'tblPrefix': 'prefix'
     }
   };
 
@@ -115,7 +122,35 @@ MainSKT.prototype.startDb = function () {
       }
     });
   }).then(function (output) {
-    self.waitDbAndTableOk();
+
+    /**
+     * Verifica se existe a base de dados dos prefixos se não existir cria a 
+     * base de dados e cria a tabela
+     */
+    r.connect(self.dbData, function (err, connection) {
+      return r.dbCreate(self.dbConfigPrefix.db).run(connection, function (err, result) {
+        if (err) {
+          console.log("[DEBUG] RethinkDB database '%s' already exists (%s:%s)\n%s", self.dbConfigPrefix.db, err.name, err.msg, err.message);
+        } else {
+          console.log("[INFO ] RethinkDB database '%s' created", self.dbConfigPrefix.db);
+        }
+        for (var tbl in self.dbConfigPrefix.tables) {
+          (function (tableName) {
+            r.db(self.dbConfigPrefix.db).tableCreate(tableName, {primaryKey: self.dbConfigPrefix.tables[tbl]}).run(connection, function (err, result) {
+              if (err) {
+                console.log("ERROR: %s:%s", err.name, err.msg);
+              } else {
+                console.log("[INFO ] RethinkDB table '%s' created", tableName);
+              }
+            });
+          })(tbl);
+        }
+      });
+    }).then(function (output) {
+      self.waitDbAndTableOk();
+    }).error(function (err) {
+      console.log(err);
+    });
   }).error(function (err) {
     console.log(err);
   });
@@ -128,15 +163,16 @@ MainSKT.prototype.startDb = function () {
  */
 MainSKT.prototype.waitDbAndTableOk = function () {
   var self = this;
+  console.log("Teste wait da tabela da base de dados dos prefixos.");
   r.connect(self.dbData).then(function (conn) {
-    return r.db(self.dbConfig.db)
+    return r.db("Prefix")
             .wait()("ready").run(conn)
             .finally(function () {
               conn.close();
             });
   }).then(function (resul) {
-    console.log("Tabelas - " + resul);
-    if (resul != Object.keys(self.dbConfig.tables).length) {
+    console.log("Tabelas - " + resul);    
+    if (resul != Object.keys(self.dbConfigPrefix.tables).length) {
       setTimeout(function () {
         self.waitDbAndTableOk();
       }, 500);
@@ -157,7 +193,7 @@ MainSKT.prototype.carregarPrefixos = function () {
   console.log("Consulta da tablea dos prefixos ter dados.");
 // Verifica se a tabela dos prefixos ja possuem dados
   r.connect(self.dbData).then(function (conn) {
-    return r.db(self.dbConfig.db).table("tblPrefix").coerceTo("array").count().run(conn)
+    return r.db("Prefix").table("tblPrefix").coerceTo("array").count().run(conn)
             .finally(function () {
               conn.close();
             });
@@ -216,7 +252,7 @@ MainSKT.prototype.carregarPrefixos = function () {
           console.log("Insersao da lista de prefixos na base de dados.");
           // Insere de uma vez todos os prefixos na base de dados
           r.connect(self.dbData).then(function (conn) {
-            return r.db(self.dbConfig.db).table("tblPrefix").insert(docsInsert).run(conn)
+            return r.db("Prefix").table("tblPrefix").insert(docsInsert).run(conn)
                     .finally(function () {
                       conn.close();
                     });

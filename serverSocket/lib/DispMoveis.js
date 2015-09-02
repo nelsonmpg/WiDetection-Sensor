@@ -17,7 +17,7 @@ module.exports.insertDispMovel = function (valsHost, client) {
               row.eq(null),
               {
                 "macAddress": valsHost[0],
-                "nameVendor": r.db(self.dbConfig.db).table("tblPrefix").get(valsHost[0].substring(0, 8)).getField("vendor").default(""),
+                "nameVendor": r.db("Prefix").table("tblPrefix").get(valsHost[0].substring(0, 8)).getField("vendor").default(""),
                 "Probed_ESSIDs": (typeof valsHost[6] == "undefined") ? "" : valsHost[6].replace(/(\r\n|\n|\r)/gm,"").split(","),
                 "disp": [{
                     name: client,
@@ -47,7 +47,7 @@ module.exports.insertDispMovel = function (valsHost, client) {
                           d);
                 })}), {
         "macAddress": valsHost[0],
-        "nameVendor": r.db(self.dbConfig.db).table("tblPrefix").get(valsHost[0].substring(0, 8)).getField("vendor").default(""),
+        "nameVendor": r.db("Prefix").table("tblPrefix").get(valsHost[0].substring(0, 8)).getField("vendor").default(""),
         "Probed_ESSIDs": r.db(self.dbConfig.db)
                 .table("DispMoveis")
                 .get(valsHost[0])("Probed_ESSIDs")

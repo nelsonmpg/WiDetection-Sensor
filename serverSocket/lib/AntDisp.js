@@ -22,7 +22,7 @@ module.exports.insertAntDisp = function (valuesHst, client) {
                     "data": r.now().inTimezone("+01:00").toEpochTime(),
                     "Power": (typeof valuesHst[3] == "undefined") ? "" : valuesHst[3],
                     "BSSID": (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, ""),
-                    "nameVendor": r.db(self.dbConfig.db).table("tblPrefix").get(valuesHst[0].substring(0, 8)).getField("vendor").default("")
+                    "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesHst[0].substring(0, 8)).getField("vendor").default("")
                   }]
               },
       r.branch(
@@ -36,7 +36,7 @@ module.exports.insertAntDisp = function (valuesHst, client) {
                             "data": r.now().inTimezone("+01:00").toEpochTime(),
                             "Power": (typeof valuesHst[3] == "undefined") ? "" : valuesHst[3],
                             "BSSID": (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, ""),
-                            "nameVendor": r.db(self.dbConfig.db).table("tblPrefix").get(valuesHst[0].substring(0, 8)).getField("vendor").default("")
+                            "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesHst[0].substring(0, 8)).getField("vendor").default("")
                           },
                   d);
                 })}),
@@ -47,7 +47,7 @@ module.exports.insertAntDisp = function (valuesHst, client) {
                   "data": r.now().inTimezone("+01:00").toEpochTime(),
                   "Power": (typeof valuesHst[3] == "undefined") ? "" : valuesHst[3],
                   "BSSID": (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, ""),
-                  "nameVendor": r.db(self.dbConfig.db).table("tblPrefix").get(valuesHst[0].substring(0, 8)).getField("vendor").default("")
+                  "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesHst[0].substring(0, 8)).getField("vendor").default("")
                 })}));
     }, {nonAtomic: true}).run(conn)
             .finally(function () {
