@@ -1,0 +1,3 @@
+*.class
+/serverSocket/nbproject/private/
+/serverSocket/node_modules/
