@@ -1,0 +1,31 @@
+{
+  "name": "wifinder",
+  "version": "0.0.1",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "authors": [
+    "Nelson Gomes <nelsonmpg@hotmail.com>",
+    "Rui Dias <ruifgdias@sapo.pt>"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "*",
+    "chokidar": "^1.0.5",
+    "colors": "*",
+    "crypto": "0.0.3",
+    "debug": "*",
+    "diff": "^2.0.2",
+    "express": "*",
+    "ini": "*",
+    "line-reader": "^0.2.4",
+    "request": "^2.60.0",
+    "rethinkdb": "*",
+	"shell-interval": "*",
+    "socket.io": "*",
+    "underscore": "*",
+    "workerjs": "*"
+  }
+}

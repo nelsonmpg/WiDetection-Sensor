@@ -1,0 +1,330 @@
+<!-- Info boxes -->
+<div class="row"><!-- Info boxes -->
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <div class="box">
+        <div  class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-wifi"></i> Config </h3>
+          <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-toggle="tooltip" title="Collapse" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-body">
+                  <table class="table table-bordered">
+                    <tbody> <!--
+                      <tr>
+                        <th></th>
+                        <th>Values</th>
+                      </tr> -->
+                      <tr>
+                        <td>
+                          <div class="input-group-btn width100">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><label>Select Device</label> <span class="fa fa-caret-down"></span></button>
+                            <ul id="select-device" class="dropdown-menu">
+                            </ul>
+                          </div><!-- /btn-group -->
+                        </td>
+                        <td>
+                          <input id="device-select" class=" width100" type="text" class="form-control" readonly>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><button id="create-monitor" type="button" class="btn btn-default" ><label>Create Monitor</label></button></td>
+                        <td><input id="device-monitor" class=" width100" type="text" readonly></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->                
+              </div><!-- /.col -->              
+            </div><!-- /.row -->
+          </div><!-- ./box-body -->
+        </div><!-- /.box -->
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+
+    <div class="col-md-8">
+      <div class="box">
+        <div  class="box-header with-border">
+          <h3 class="box-title"><i class="fa fa-sitemap"></i> Config Site Server</h3>
+          <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-toggle="tooltip" title="Collapse" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="box">
+                <div class="box-body">
+                  <table class="table table-bordered">
+                    <tbody> <!--
+                      <tr>
+                        <th></th>
+                        <th>Values</th>
+                      </tr> -->
+                      <tr>
+                        <td>
+                          <div class="input-group-btn width100">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><label>Site Name</label> <span class="fa fa-caret-down"></span></button>
+                            <ul id="select-site-name" class="dropdown-menu">
+                            </ul>
+                          </div><!-- /btn-group -->
+                          <!-- <label>Site Name</label>placeholder -->
+                        </td>
+                        <td><input id="site-name" class=" width100 valid-input" data-typevalue="siteName" type="text" value="Default" placeholder="Default"></td>
+                        <td class="whith10p color-red" data-toggle="tooltip" title="Site Name - Min length 3 - The special chars will be removed."><i class="icon fa fa-close"></i></td>
+                      </tr>
+                      <tr>
+                        <td><label>PassWord</label></td>
+                        <td><input id="site-pass" class=" width100 valid-input" type="password" value="wifi tracker"  placeholder="password"></td>
+                        <td class="whith10p color-red" data-toggle="tooltip" title="Password Site Access - Min length 3"><i class="icon fa fa-close"></i></td>
+                      </tr>                   
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->                
+              </div><!-- /.col -->              
+            </div><!-- /.row -->
+            <div class="col-md-6">
+              <div class="box">
+                <div class="box-body">
+                  <table class="table table-bordered">
+                    <tbody> <!--
+                      <tr>
+                        <th></th>
+                        <th>Values</th>
+                      </tr> -->
+                      <tr>
+                        <td><label>Server IP</label></td>
+                        <td><input id="server-ip" data-inputmask="'alias': 'ip'" data-mask="" class=" width100 valid-input" data-typevalue="ipaddress" type="text" value="127.0.0.1" placeholder="127.0.0.1"></td>
+                        <td class="whith10p color-red" data-toggle="tooltip" title="Valid Ip Address Server Data Base"><i class="icon fa fa-close"></i></td>
+                      </tr>
+                      <tr>
+                        <td><label>Server Port</label></td>
+                        <td><input id="server-port" class=" width100 valid-input" data-typevalue="port" type="text" value="28015" placeholder="28015"><br></td>
+                        <td class="whith10p color-red" data-toggle="tooltip" title="Valid Port Access Server Data Base"><i class="icon fa fa-close"></i></td>
+                      </tr>                      
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->                
+              </div><!-- /.col -->              
+            </div><!-- /.row -->
+
+          </div><!-- ./box-body -->
+        </div><!-- /.box -->
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.row -->
+</div><!-- /.row -->
+
+
+<div class="row"><!-- Info boxes -->
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <div class="box">
+        <div  class="box-header with-border">
+          <h3 class="box-title"><!-- <i class="fa fa-sitemap"></i>--> Config Server</h3>
+          <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-toggle="tooltip" title="Collapse" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-body">
+                  <table class="table table-bordered">
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <button id="Check-Position" type="button" class="btn btn-default width100" >Check Position</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label>City</label></td>
+                        <td><input id="sensor-local" class=" width100 valid-input" type="text" value="Tomar" placeholder="Tomar"></td>
+                        <td class="whith10p color-red" data-toggle="tooltip" title="Local Sensor - Min length 3"><i class="icon fa fa-close"></i></td>
+                      </tr>
+                      <tr>
+                        <td><label>Sensor Name</label></td>
+                        <td><input id="sensor-name" class=" width100 valid-input" type="text" value="sensor-ipt" placeholder="sensor"></td>
+                        <td class="whith10p color-red" data-toggle="tooltip" title="Name sensor - Min length 3"><i class="icon fa fa-close"></i></td>
+                      </tr>
+                      <tr>
+                        <td><label>Latitude</label></td>
+                        <td><input id="sensor-latitude" class=" width100" type="text" value="0.0" readonly><br></td>
+                        <td class="whith10p"></td>
+                      </tr>
+                      <tr>
+                        <td><label>Longitude</label></td>
+                        <td><input id="sensor-longitude" class=" width100" type="text" value="0.0" readonly><br></td>
+                        <td class="whith10p"></td>
+                      </tr>  
+                      <tr>
+                        <td><label>PosX</label></td>
+                        <td><input id="sensor-posx" class=" width100" type="text" value="0.0" disabled="" readonly><br></td>
+                        <td class="whith10p"></td>
+                      </tr>
+                      <tr>
+                        <td><label>PosY</label></td>
+                        <td><input id="sensor-posy" class=" width100" type="text" value="0.0" disabled="" readonly><br></td>
+                        <td class="whith10p"></td>
+                      </tr> 
+                      <tr>
+                        <td id="addimagesensor">
+                          <div id="imgsensor"></div>
+                        </td>
+                        <td>
+                          <button id="add-plant" type="button" class="btn btn-default width100" disabled="disabled">Add Plant</button>
+                        </td>
+                      </tr>                   
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->                
+              </div><!-- /.col -->              
+            </div><!-- /.row -->            
+          </div><!-- ./box-body -->
+        </div><!-- /.box -->
+      </div><!-- /.col -->
+
+      <div class="box">
+        <div  class="box-header with-border">
+          <h3 class="box-title"></h3>
+          <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-toggle="tooltip" title="Collapse" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-body">
+                  <table class="table table-bordered">
+                    <tbody>
+                      <tr>
+                        <td><p class="text-center"><b>Local File Monitor</b></p></td>
+                        <td><input id="site-file-folder" class=" width100 valid-input" data-typevalue="systempath" type="text" value="./"  placeholder="./"></td>
+                        <td class="whith10p color-red" data-toggle="tooltip" title="Valid system path."><i class="icon fa fa-close"></i></td>
+                      </tr> 
+                      <tr>
+                        <td>
+                          <p class="text-center"><b>Auto start in next session</b></p>
+                        </td>
+                        <td>    
+                          <div class="onoffswitch col-centred">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
+                            <label class="onoffswitch-label" for="myonoffswitch">
+                              <span class="onoffswitch-inner"></span>
+                              <span class="onoffswitch-switch"></span>
+                            </label>
+                          </div>
+                        </td>
+                        <td class="whith10p"></td>
+                      </tr> 
+                      <tr>
+                        <td>                          
+                          <button id="refresh-values" type="button" class="btn btn-default width100" ><label> Refresh Values <i class='fa  fa-refresh'></i></label></button>
+                        </td>
+                        <td>                          
+                          <button id="save-settings" type="button" class="btn btn-default width100" ><label> Save Settings <i class="fa fa-save"></i></label></button>
+                        </td>
+                        <td class="whith10p"></td>
+                      </tr>
+                      <tr>
+                        <td>                     
+                          <button id="start_monitor" type="button" class="btn btn-default width100" ><label> Start Monitor <i class="fa fa-power-off"></i></label></button>     
+                        </td>
+                        <td>                          
+                          <button id="stop-monitor" type="button" class="btn btn-default width100" ><label> Stop Monitor <i class="fa fa-circle-o-notch"></i></label></button>
+                        </td>
+                        <td class="whith10p"></td>
+                      </tr>
+                      <tr>
+                        <td>                     
+                          <button id="btn_restartSO" type="button" class="btn btn-default width100" ><label> Restart Sensor <i class="fa fa-refresh"></i></label></button>     
+                        </td>
+                        <td>                          
+                          <button id="btn_poweroffSO" type="button" class="btn btn-default width100" ><label> PowerOff Sensor <i class="fa fa-circle-o-notch"></i></label></button>
+                        </td>
+                        <td class="whith10p"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->                
+              </div><!-- /.col -->              
+            </div><!-- /.row -->            
+          </div><!-- ./box-body -->
+        </div><!-- /.box -->
+      </div><!-- /.col -->
+
+    </div><!-- /.row -->
+
+    <div class="col-md-8">
+      <div class="box">
+        <div  class="box-header with-border">
+          <h3 class="box-title"><!-- <i class="fa fa-sitemap"></i>--> Local Sensor</h3>
+          <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-toggle="tooltip" title="Collapse" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="nav-tabs-custom">
+                <!-- Tabs within a box -->
+                <ul class="nav nav-tabs pull-right">
+                  <li class="select-source"><a href="tab2" data-toggle="tab"> Plant</a></li>
+                  <li class="select-source active"><a href="tab1" data-toggle="tab">Google Maps</a></li>
+                </ul>
+                <div id="posiSensor" class="tab-content no-padding">
+                  <div class="tab-pane active height600 tab1" id="map-google"></div>
+                  <div class="tab-pane height600 tab2" id="plantlocalsensor">
+                    <input type="file" id="selectplant" style="display: none">
+                  </div>
+                </div>
+              </div><!-- /.nav-tabs-custom -->
+            </div>
+          </div>
+        </div><!-- /.box -->
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.row -->
+</div><!-- /.row -->
+
+
+<div class="modal modal-warning">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"> <!--  data-toggle="tooltip" title="Collapse" data-widget="collapse" -->
+        <button type="button" class="close btn-modal" data-event="close"  data-toggle="tooltip" title="Close Warning" data-dismiss="modal" aria-label="Close" data-widget="close"><span aria-hidden="true">×</span></button>
+        <h2 class="modal-title icon fa  fa-info-circle"> Warning</h2>
+      </div>
+      <div class="modal-body">
+        <p><b>Careful!</b><br>You have unsaved settings!!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline pull-left btn-modal" data-event="close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline btn-modal" data-event="notsave" data-dismiss="modal">Dont save settings and continue</button>
+        <button type="button" data-event="save" class="btn btn-outline pull-right btn-modal">Save settings and continue</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<ul class='custom-menu'>
+  <li data-action="remove">Remove Sensor</li>
+  <li data-action="removeplant">Remove Plant</li>
+</ul>
