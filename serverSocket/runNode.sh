@@ -4,7 +4,7 @@
 /home/linaro/WiFinder-Sensor
 git pull https://github.com/ruifgdias/WiFinder-Sensor
 
-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+#-#-#-#-#-#-#-#-#-
 
 # Diretoria para iniciar o servidor http
 cd /home/linaro/WiFinder-Sensor/serverSocket

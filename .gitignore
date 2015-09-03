@@ -1,3 +1,5 @@
 *.class
 /serverSocket/nbproject/private/
 /serverSocket/node_modules/
+/serverSocket/ConfigSKT.ini
+/serverSocket/runNode
