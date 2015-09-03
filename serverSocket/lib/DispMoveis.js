@@ -52,7 +52,7 @@ module.exports.insertDispMovel = function (valsHost, client) {
         "Probed_ESSIDs": r.db(self.dbConfig.db)
                 .table("DispMoveis")
                 .get(valsHost[0])("Probed_ESSIDs")
-                .setUnion((typeof valsHost[6] == "undefined") ? "" : valsHost[6].replace(/(\r\n|\n|\r)/gm, "").split(",")),
+                .setUnion((typeof valsHost[6] == "undefined") ? [] : valsHost[6].replace(/(\r\n|\n|\r)/gm, "").split(",")),
         "disp": row("disp").append({
           "name": client,
           "First_time": r.now().inTimezone("+01:00").toEpochTime(),
