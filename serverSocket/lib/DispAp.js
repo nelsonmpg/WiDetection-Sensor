@@ -44,10 +44,14 @@ module.exports.insertDispAp = function (valsAp, client) {
                 "Authentication": (valsAp.length == 14) ? ((typeof valsAp[6] == "undefined") ? "" : (typeof valsAp[6].split(",")[1] == "undefined") ? "" : valsAp[6].split(",")[1]) : valsAp[7],
                 "ESSID": (valsAp.length == 14) ? ((typeof valsAp[12] == "undefined") ? "" : valsAp[12]) : ((typeof valsAp[13] == "undefined") ? "" : valsAp[13]),
                 "disp": row('disp').map(function (d) {
-                  return r.branch(d('name').eq(client).default(false), d.merge({values: d("values").append({
-                      "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-                      "Power": (valsAp.length == 14) ? ((typeof valsAp[7] == "undefined") ? "" : valsAp[7]) : ((typeof valsAp[8] == "undefined") ? "" : valsAp[8])
-                    })}), d);
+                  return r.branch(
+                          d('name').eq(client).default(false),
+                          d.merge({
+                            "values": d("values").append({
+                              "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
+                              "Power": (valsAp.length == 14) ? ((typeof valsAp[7] == "undefined") ? "" : valsAp[7]) : ((typeof valsAp[8] == "undefined") ? "" : valsAp[8])
+                            })}),
+                          d);
                 })}),
               {"macAddress": valsAp[0],
                 "nameVendor": r.db("Prefix").table("tblPrefix").get(valsAp[0].substring(0, 8)).getField("vendor").default(""),
@@ -70,7 +74,7 @@ module.exports.insertDispAp = function (valsAp, client) {
               conn.close();
             });
   }).then(function (output) {
-//    console.log("Query output:", output);
+//    console.log("Query Ap output:", output);
   }).error(function (err) {
     console.log("***************** Dispp Ap **************************");
     console.log("Failed:", err);

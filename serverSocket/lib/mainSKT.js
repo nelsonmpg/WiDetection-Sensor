@@ -171,13 +171,30 @@ MainSKT.prototype.waitDbAndTableOk = function () {
               conn.close();
             });
   }).then(function (resul) {
-    console.log("Tabelas - " + resul);    
+    console.log("Tabelas - " + resul);
     if (resul != Object.keys(self.dbConfigPrefix.tables).length) {
       setTimeout(function () {
         self.waitDbAndTableOk();
       }, 500);
     } else {
-      self.carregarPrefixos();
+      r.connect(self.dbData).then(function (conn) {
+        return r.db(self.dbConfig.db)
+                .wait()("ready").run(conn)
+                .finally(function () {
+                  conn.close();
+                });
+      }).then(function (resul) {
+        console.log("Tabelas - " + resul);
+        if (resul != Object.keys(self.dbConfig.tables).length) {
+          setTimeout(function () {
+            self.waitDbAndTableOk();
+          }, 500);
+        } else {
+          self.carregarPrefixos();
+        }
+      }).error(function (err) {
+        console.log(err);
+      });
     }
   }).error(function (err) {
     console.log(err);

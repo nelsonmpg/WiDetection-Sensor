@@ -18,7 +18,7 @@ module.exports.insertDispMovel = function (valsHost, client) {
               {
                 "macAddress": valsHost[0],
                 "nameVendor": r.db("Prefix").table("tblPrefix").get(valsHost[0].substring(0, 8)).getField("vendor").default(""),
-                "Probed_ESSIDs": (typeof valsHost[6] == "undefined") ? "" : valsHost[6].replace(/(\r\n|\n|\r)/gm,"").split(","),
+                "Probed_ESSIDs": (typeof valsHost[6] == "undefined") ? [] : valsHost[6].replace(/(\r\n|\n|\r)/gm, "").split(","),
                 "disp": [{
                     name: client,
                     "First_time": r.now().inTimezone("+01:00").toEpochTime(),
@@ -35,11 +35,12 @@ module.exports.insertDispMovel = function (valsHost, client) {
                 "Probed_ESSIDs": r.db(self.dbConfig.db)
                         .table("DispMoveis")
                         .get(valsHost[0])("Probed_ESSIDs")
-                        .setUnion((typeof valsHost[6] == "undefined") ? "" : valsHost[6].replace(/(\r\n|\n|\r)/gm,"").split(",")),
+                        .setUnion((typeof valsHost[6] == "undefined") ? [] : valsHost[6].replace(/(\r\n|\n|\r)/gm, "").split(",")),
                 "disp": row('disp').map(function (d) {
                   return r.branch(
                           d('name').eq(client).default(false),
-                          d.merge({values: d('values').append({
+                          d.merge({
+                            "values": d('values').append({
                               "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
                               "Power": (typeof valsHost[3] == "undefined") ? "" : valsHost[3],
                               "BSSID": (typeof valsHost[5] == "undefined") ? "" : valsHost[5].replace(/(,| |\r\n|\n|\r)/g, "")
@@ -51,7 +52,7 @@ module.exports.insertDispMovel = function (valsHost, client) {
         "Probed_ESSIDs": r.db(self.dbConfig.db)
                 .table("DispMoveis")
                 .get(valsHost[0])("Probed_ESSIDs")
-                .setUnion((typeof valsHost[6] == "undefined") ? "" : valsHost[6].replace(/(\r\n|\n|\r)/gm,"").split(",")),
+                .setUnion((typeof valsHost[6] == "undefined") ? "" : valsHost[6].replace(/(\r\n|\n|\r)/gm, "").split(",")),
         "disp": row("disp").append({
           "name": client,
           "First_time": r.now().inTimezone("+01:00").toEpochTime(),
@@ -66,7 +67,7 @@ module.exports.insertDispMovel = function (valsHost, client) {
               conn.close();
             });
   }).then(function (output) {
-//    console.log("Query output:", output);
+//    console.log("Query Disp output:\n", output);
   }).error(function (err) {
     console.log("***************** Dispp Moveis **************************");
     console.log("Failed:", err);

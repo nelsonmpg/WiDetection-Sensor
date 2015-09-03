@@ -123,8 +123,8 @@ var ServerSocket = function (port, configdb, sensorcfg) {
  */
 ServerSocket.prototype.start = function () {
   var self = this;
-  this.serverSck.listen();
   
+  console.log("Start socket watcher.");
   // insere ou atualiza o sensor
   activeant.insertActiveAnt(self.clienteSend, self.lati, self.long, self.local, self.posx, self.posy);
   
@@ -158,6 +158,7 @@ ServerSocket.prototype.start = function () {
       console.log("I'm done!!");
     });
   });
+  this.serverSck.listen();
 };
 
 /**
