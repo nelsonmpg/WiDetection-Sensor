@@ -1,9 +1,9 @@
 *.class
-/serverSocket/nbproject/private/
-/serverSocket/node_modules/
-/serverSocket/ConfigSKT.ini
-/serverSocket/runNode
-/serverSocket/clearFiles.sh
-/serverSocket/runNode.sh
-/serverSocket/serverStatus.sh
-/serverSocket/stopAir.sh
+serverSocket/nbproject/private/
+serverSocket/node_modules/
+serverSocket/ConfigSKT.ini
+serverSocket/runAirmon
+serverSocket/clearFiles.sh
+serverSocket/runNode.sh
+serverSocket/serverStatus.sh
+serverSocket/stopAir.sh
