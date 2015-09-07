@@ -227,7 +227,7 @@ MainSKT.prototype.carregarPrefixos = function () {
           var docsInsert = [];
           for (var i in lines) {
             var line = lines[i].trim();
-            if (line[0] != "#" && line.length > 5 && self.numberIsHex(line[0])) {
+            if (line[0] != "#" && line.length > 5 && self.numberIsHex(line)) {
               var prefix = "";
               var vendor = "";
               var keyPrefix = "";
@@ -432,13 +432,13 @@ MainSKT.prototype.download = function (url, callback) {
  * @returns {Boolean}
  */
 MainSKT.prototype.numberIsHex = function (char) {
-  var hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'A', 'B', 'C', 'D', 'E', 'F']
   var result = false;
-  for (var i in hex) {
-    if (hex[i] == char) {
-      result = true;
-      break;
-    }
+  char = char.replace(/[^\w\s]/gi, '').slice(0, 6);
+  char = char.substr(0, 2) + ":" + char.substr(2, 2) + ":" + char.substr(4);
+  var urlPattern = /^(([A-Fa-f0-9]{2}[:]){2}[A-Fa-f0-9]{2}[,]?)+$/;
+  if (char.match(urlPattern)) {
+    result = true;
+    console.log(char);
   }
   return result;
 };
