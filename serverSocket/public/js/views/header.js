@@ -9,7 +9,11 @@ window.HeaderView = Backbone.View.extend({
     "click #logout-btn": "logout",
     "click .sidebar-toggle": "toogleSidebar",
     "click #openopt": "openSidebarOption",
-    "click #newuser-btn": "newUser"
+    "click #newuser-btn": "newUser",
+    "click a.logo": function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   },
   init: function () {
     $(".nameuser").text(window.profile.get("name"));
@@ -33,9 +37,9 @@ window.HeaderView = Backbone.View.extend({
     window.logged = false;
     window.localStorage.setItem("Logged", false);
     window.sessionStorage.clear();
-        if (!localStorage.getItem('savecredential')) {
-             localStorage.setItem('keyo', null);
-        }
+    if (!localStorage.getItem('savecredential')) {
+      localStorage.setItem('keyo', null);
+    }
     app.navigate("", {
       trigger: true
     });
