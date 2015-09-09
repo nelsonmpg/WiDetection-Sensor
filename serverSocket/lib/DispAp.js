@@ -12,7 +12,8 @@ var self = this;
  * @returns {undefined}
  */
 module.exports.insertDispAp = function (valsAp, client) {
-  if (valsAp[4] != -1) {
+  var pwr = (valsAp.length == 14) ? ((typeof valsAp[7] == "undefined") ? "-1" : valsAp[7]) : ((typeof valsAp[8] == "undefined") ? "-1" : valsAp[8]);
+  if ((pwr * 1) != -1) {
     r.connect(self.dbData).then(function (conn) {
       return r.db(self.dbConfig.db).table("DispAp").get(valsAp[0]).replace(function (row) {
         return r.branch(
@@ -31,7 +32,7 @@ module.exports.insertDispAp = function (valsAp, client) {
                       "First_time": r.now().inTimezone("+01:00").toEpochTime(),
                       "values": [{
                           "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-                          "Power": (valsAp.length == 14) ? ((typeof valsAp[7] == "undefined") ? "" : valsAp[7]) : ((typeof valsAp[8] == "undefined") ? "" : valsAp[8])
+                          "Power": pwr
                         }]
                     }]
                 },
@@ -50,7 +51,7 @@ module.exports.insertDispAp = function (valsAp, client) {
                             d.merge({
                               "values": d("values").append({
                                 "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-                                "Power": (valsAp.length == 14) ? ((typeof valsAp[7] == "undefined") ? "" : valsAp[7]) : ((typeof valsAp[8] == "undefined") ? "" : valsAp[8])
+                                "Power": pwr
                               })}),
                             d);
                   })}),
@@ -67,7 +68,7 @@ module.exports.insertDispAp = function (valsAp, client) {
                     "First_time": r.now().inTimezone("+01:00").toEpochTime(),
                     "values": [{
                         "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-                        "Power": (valsAp.length == 14) ? ((typeof valsAp[7] == "undefined") ? "" : valsAp[7]) : ((typeof valsAp[8] == "undefined") ? "" : valsAp[8])
+                        "Power": pwr
                       }]
                   })}));
       }, {nonAtomic: true}).run(conn)

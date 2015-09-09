@@ -172,8 +172,8 @@ ServerSocket.prototype.sendToDataBase = function (result) {
   // verificacao do tamanho do macaddress recebido
   if (result[0].trim().length == 17) { 
     if (result.length < 8) {
-      var valsHost = result;
-      var valuesHst = result;
+      var valsHost = result.slice();
+      var valuesHst = result.slice();
 
       dispmoveis.insertDispMovel(valsHost, self.clienteSend);
       antdisp.insertAntDisp(valuesHst, self.clienteSend);
@@ -181,8 +181,8 @@ ServerSocket.prototype.sendToDataBase = function (result) {
     } else if (result.length == 13 || result.length == 14 || result.length == 15) {
       // if de verificacao do tamanho do array < 8
 
-      var valsAp = result;
-      var valuesAp = result;
+      var valsAp = result.slice();
+      var valuesAp = result.slice();
 
       dispap.insertDispAp(valsAp, self.clienteSend);
       antap.insertAntAp(valuesAp, self.clienteSend);
