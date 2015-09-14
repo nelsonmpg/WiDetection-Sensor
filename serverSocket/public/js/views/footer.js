@@ -8,7 +8,7 @@ window.FooterView = Backbone.View.extend({
             "/getGitLastUpdate",
             function (data) {
               $("#lastTime").html(function () {
-                var input = data;
+                var input = new Date(data);
                 var d = new Date(Date.parse(input.replace(/-/g, "/")));
                 var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                 var date = d.getFullYear() + "/" + month[d.getMonth()] + "/" + d.getDay();
