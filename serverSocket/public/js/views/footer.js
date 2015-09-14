@@ -1,5 +1,9 @@
 window.FooterView = Backbone.View.extend({
   events: {
+    "click .clickhref": function (e){
+      e.preventDefault();
+      window.open($(e.currentTarget).attr("href"), '_blank');
+    }
   },
   initialize: function () {
   },
