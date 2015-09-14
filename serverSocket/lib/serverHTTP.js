@@ -98,6 +98,9 @@ ServerHTTP.prototype.start = function () {
 // Desliga o SO
   this.app.get("/poweroffsystem", osquerys.poweroffsystem);
 
+// Devolde a ultima atualizacao do git
+  this.app.get("/getGitLastUpdate", osquerys.getLastGitUpdate);
+  
 // Verifica se no ficheiro de configuracao foi selecionada a opcao de auto start
   this.checkServerSocketAutoStart();
 

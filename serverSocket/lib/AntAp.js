@@ -13,7 +13,7 @@ var self = this;
  */
 module.exports.insertAntAp = function (valuesAp, client) {
   var pwr = (valuesAp.length == 14) ? ((typeof valuesAp[7] == "undefined") ? "-1" : valuesAp[7]) : ((typeof valuesAp[8] == "undefined") ? "-1" : valuesAp[8]);
-  if ((pwr * 1) != -1) {
+  if ((pwr * 1) != -1 && pwr.trim() != "" && (pwr * 1) < 10 &&  (pwr * 1) > -140){
     r.connect(self.dbData).then(function (conn) {
       return r.db(self.dbConfig.db).table("AntAp").get(client).replace(function (row) {
         return r.branch(

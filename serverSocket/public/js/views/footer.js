@@ -1,12 +1,19 @@
 window.FooterView = Backbone.View.extend({
   events: {
-    "click #xpto": "funcaoClick"
-  },
-  funcaoClick: function () {
-
   },
   initialize: function () {
-    this.render();
+  },
+  init : function (){
+    modem("GET",
+            "/getGitLastUpdate",
+            function (data) {
+              $("#lastTime").html(new Date(data));
+            },
+            function (xhr, ajaxOptions, thrownError) {
+              var json = JSON.parse(xhr.responseText);
+              error_launch(json.message);
+            }, {}
+    );
   },
   render: function () {
     var self = this;

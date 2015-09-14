@@ -91,6 +91,7 @@ var Router = Backbone.Router.extend({
       $('aside.main-sidebar').html(self.sidebar.render().el);
 
       $('footer').html(self.footer.render().el);
+      self.footer.init();
     });
   },
   // carrega as configuracoes do site

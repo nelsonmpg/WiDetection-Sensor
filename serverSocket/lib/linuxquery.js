@@ -7,7 +7,7 @@ var ini = require('ini');
 var Worker = require('workerjs');
 
 module.exports.validpathsystem = function (req, res) {
-  var pathfile = req.params.path.replace(/§/g, "/").replace("£",".");
+  var pathfile = req.params.path.replace(/§/g, "/").replace("£", ".");
   fs.exists(pathfile, function (exists) {
     res.send(exists);
   });
@@ -197,6 +197,12 @@ module.exports.poweroffsystem = function (req, res) {
     if (error !== null) {
       console.log('exec error: ' + error);
     }
+  });
+};
+
+module.exports.getLastGitUpdate = function (req, res) {
+  cp.exec("git log -1 --format=%cd", function (error, stdout, stderr) {
+    res.json(stdout);
   });
 };
 

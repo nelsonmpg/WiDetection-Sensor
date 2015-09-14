@@ -13,7 +13,7 @@ var self = this;
  */
 module.exports.insertDispAp = function (valsAp, client) {
   var pwr = (valsAp.length == 14) ? ((typeof valsAp[7] == "undefined") ? "-1" : valsAp[7]) : ((typeof valsAp[8] == "undefined") ? "-1" : valsAp[8]);
-  if ((pwr * 1) != -1) {
+  if ((pwr * 1) != -1 && pwr.trim() != "" && (pwr * 1) < 10 &&  (pwr * 1) > -140) {
     r.connect(self.dbData).then(function (conn) {
       return r.db(self.dbConfig.db).table("DispAp").get(valsAp[0]).replace(function (row) {
         return r.branch(
