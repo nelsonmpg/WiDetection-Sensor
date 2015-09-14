@@ -7,7 +7,7 @@ window.FooterView = Backbone.View.extend({
     modem("GET",
             "/getGitLastUpdate",
             function (data) {
-              $("#lastTime").html(new Date(data).toDateString());
+              $("#lastTime").html(new Date(data).toLocaleString());
             },
             function (xhr, ajaxOptions, thrownError) {
               var json = JSON.parse(xhr.responseText);
