@@ -3,11 +3,18 @@ window.FooterView = Backbone.View.extend({
   },
   initialize: function () {
   },
-  init : function (){
+  init: function () {
     modem("GET",
             "/getGitLastUpdate",
             function (data) {
-              $("#lastTime").html(new Date(data));
+              $("#lastTime").html(function () {
+                var input = data;
+                var d = new Date(Date.parse(input.replace(/-/g, "/")));
+                var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                var date = d.getFullYear() + "/" + month[d.getMonth()] + "/" + d.getDay();
+                var time = d.toLocaleTimeString().toLowerCase().replace(/([\d]+:[\d]+):[\d]+(\s\w+)/g, "$1$2");
+                return (date + " " + time);
+              });
             },
             function (xhr, ajaxOptions, thrownError) {
               var json = JSON.parse(xhr.responseText);
