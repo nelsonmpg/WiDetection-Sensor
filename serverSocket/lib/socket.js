@@ -202,8 +202,10 @@ process.on("message", function (data) {
   var serverskt = new ServerSocket(data.port, data.configdb, data.sensorcfg);
   serverskt.start();
 });
+
 //excepcoes para os erros encontrados
-//process.on('uncaughtException', function (err) {
-//    console.log('Excepcao capturada: ' + err);
-//});
+process.on('uncaughtException', function (err) {
+    console.log('Excepcao capturada: ' + err);
+});
+
 module.exports = ServerSocket;
