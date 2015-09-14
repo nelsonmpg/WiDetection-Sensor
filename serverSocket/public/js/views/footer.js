@@ -7,14 +7,7 @@ window.FooterView = Backbone.View.extend({
     modem("GET",
             "/getGitLastUpdate",
             function (data) {
-              $("#lastTime").html(function () {
-                var input = new Date(data);
-                var d = new Date(Date.parse(input.replace(/-/g, "/")));
-                var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                var date = d.getFullYear() + "/" + month[d.getMonth()] + "/" + d.getDay();
-                var time = d.toLocaleTimeString().toLowerCase().replace(/([\d]+:[\d]+):[\d]+(\s\w+)/g, "$1$2");
-                return (date + " " + time);
-              });
+              $("#lastTime").html(new Date(data).toDateString());
             },
             function (xhr, ajaxOptions, thrownError) {
               var json = JSON.parse(xhr.responseText);
