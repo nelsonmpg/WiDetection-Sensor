@@ -20,7 +20,7 @@ module.exports.insertDispAp = function (valsAp, client) {
                 row.eq(null),
                 {
                   "macAddress": valsAp[0],
-                  "nameVendor": r.db("Prefix").table("tblPrefix").get(valsAp[0].substring(0, 8)).getField("vendor").default(""),
+                  "nameVendor": r.db("Prefix").table("tblPrefix").get(valsAp[0].substring(0, 8)).getField("vendor").default("UNKNOWN"),
                   "channel": (typeof valsAp[3] == "undefined") ? "" : valsAp[3],
                   "Speed": (typeof valsAp[4] == "undefined") ? "" : valsAp[4],
                   "Privacy": (typeof valsAp[5] == "undefined") ? "" : valsAp[5],
@@ -56,7 +56,7 @@ module.exports.insertDispAp = function (valsAp, client) {
                             d);
                   })}),
                 {"macAddress": valsAp[0],
-                  "nameVendor": r.db("Prefix").table("tblPrefix").get(valsAp[0].substring(0, 8)).getField("vendor").default(""),
+                  "nameVendor": r.db("Prefix").table("tblPrefix").get(valsAp[0].substring(0, 8)).getField("vendor").default("UNKNOWN"),
                   "channel": (typeof valsAp[3] == "undefined") ? "" : valsAp[3],
                   "Speed": (typeof valsAp[4] == "undefined") ? "" : valsAp[4],
                   "Privacy": (typeof valsAp[5] == "undefined") ? "" : valsAp[5],
