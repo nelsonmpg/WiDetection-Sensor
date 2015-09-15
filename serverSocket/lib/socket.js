@@ -17,7 +17,7 @@ var folderroot = "";
  * Configuracao do script que detecta alteracoes no ficheiro retendido 
  * @type @exp;chokidar@call;watch
  */
-//var watcher;
+var watcher;
 
 // script de copneccao com a base de daods
 var connectdb = require("./ConnectDb");
@@ -49,13 +49,13 @@ var ServerSocket = function (port, configdb, sensorcfg) {
   this.plant = sensorcfg.plant;
   this.scanStart = false;
   this.dbConfig = configdb;
-  
+
   fileRead = folderroot + fileRead;
   console.log(fileRead);
-  this.watcher = chokidar.watch(fileRead, {
-  ignored: /[\/\\]\./,
-  persistent: true
-}); //filefolder
+  watcher = chokidar.watch(fileRead, {
+    ignored: /[\/\\]\./,
+    persistent: true
+  }); //filefolder
 
 // consiguracao dod acesso a base de dados
   this.dbData = {
@@ -71,7 +71,7 @@ var ServerSocket = function (port, configdb, sensorcfg) {
   dispmoveis.dbData = this.dbData;
   dispap.dbData = this.dbData;
   activeant.dbData = this.dbData;
-  
+
   // envia as definicoes da base de dados
   antdisp.dbConfig = this.dbConfig;
   antap.dbConfig = this.dbConfig;
@@ -115,31 +115,16 @@ var ServerSocket = function (port, configdb, sensorcfg) {
       console.log("The shell command was called five times. Exiting...");
     }
   });
-};
-
-/**
- * Inicia o servidor 
- * @returns {undefined}
- */
-ServerSocket.prototype.start = function () {
-  var self = this;
-  
-  console.log("Start socket watcher.");
-  // insere ou atualiza o sensor
-  activeant.insertActiveAnt(self.clienteSend, self.lati, self.long, self.local, self.posx, self.posy);
-  
-  // insere ou atualiza a planta 
-  activeant.insertPlant(self.clienteSend, self.plant);
 
 // script que deteta alteracoes efectuadas no ficheiro especifico
-  self.watcher.on('change', function (path) {
+  watcher.on('change', function (path) {
     lineReader.eachLine(fileRead, function (line) {
       if (line[2] == ":" && line.length > 4) {
         var result = line.split(", ");
         var oldLine = localTable[result[0]];
         if (oldLine) {
           var a = result.slice();
-          
+
           // verifica se duas strings sao iguais
           var diff = jsdiff.diffTrimmedLines(oldLine, line);
           diff.forEach(function (part) {
@@ -158,6 +143,22 @@ ServerSocket.prototype.start = function () {
       console.log("I'm done!!");
     });
   });
+};
+
+/**
+ * Inicia o servidor 
+ * @returns {undefined}
+ */
+ServerSocket.prototype.start = function () {
+  var self = this;
+
+  console.log("Start socket watcher.");
+  // insere ou atualiza o sensor
+  activeant.insertActiveAnt(self.clienteSend, self.lati, self.long, self.local, self.posx, self.posy);
+
+  // insere ou atualiza a planta 
+  activeant.insertPlant(self.clienteSend, self.plant);
+
   this.serverSck.listen();
 };
 
@@ -168,9 +169,9 @@ ServerSocket.prototype.start = function () {
  */
 ServerSocket.prototype.sendToDataBase = function (result) {
   var self = this;
-  
+
   // verificacao do tamanho do macaddress recebido
-  if (result[0].trim().length == 17) { 
+  if (result[0].trim().length == 17) {
     if (result.length < 8) {
       var valsHost = result.slice();
       var valuesHst = result.slice();
@@ -205,7 +206,7 @@ process.on("message", function (data) {
 
 //excepcoes para os erros encontrados
 process.on('uncaughtException', function (err) {
-    console.log('Excepcao capturada: ' + err);
+  console.log('Excepcao capturada: ' + err);
 });
 
 module.exports = ServerSocket;
