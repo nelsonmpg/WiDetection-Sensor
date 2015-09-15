@@ -22,11 +22,11 @@ module.exports.insertAntAp = function (valuesAp, client) {
                   "nomeAntena": client,
                   "host": [{
                       "macAddress": valuesAp[0],
-                      "channel": (typeof valuesAp[3] == "undefined") ? "" : valuesAp[3],
-                      "Privacy": (typeof valuesAp[5] == "undefined") ? "" : valuesAp[5],
-                      "Cipher": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0]) : valuesAp[6],
-                      "Authentication": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1]) : valuesAp[7],
-                      "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12]) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13]),
+                      "channel": (typeof valuesAp[3] == "undefined") ? "" : valuesAp[3].trim(),
+                      "Privacy": (typeof valuesAp[5] == "undefined") ? "" : valuesAp[5].trim(),
+                      "Cipher": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim(),
+                      "Authentication": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim(),
+                      "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12].trim()) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13].trim()),
                       "data": r.now().inTimezone("+01:00").toEpochTime(),
                       "Power": pwr,
                       "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("UNKNOWN")
@@ -40,9 +40,10 @@ module.exports.insertAntAp = function (valuesAp, client) {
                             d("macAddress").eq(valuesAp[0]).default(false),
                             {
                               "macAddress": valuesAp[0],
-                              "channel": (typeof valuesAp[3] == "undefined") ? "" : valuesAp[3],
-                              "Privacy": (typeof valuesAp[5] == "undefined") ? "" : valuesAp[5], "Cipher": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0]) : valuesAp[6],
-                              "Authentication": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1]) : valuesAp[7],
+                              "channel": (typeof valuesAp[3] == "undefined") ? "" : valuesAp[3].trim(),
+                              "Privacy": (typeof valuesAp[5] == "undefined") ? "" : valuesAp[5].trim(), 
+                              "Cipher": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim(),
+                              "Authentication": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim(),
                               "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12]) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13]),
                               "data": r.now().inTimezone("+01:00").toEpochTime(),
                               "Power": pwr,
@@ -53,11 +54,12 @@ module.exports.insertAntAp = function (valuesAp, client) {
                 {
                   "nomeAntena": client,
                   "host": row("host").append({
-                    "macAddress": valuesAp[0], "channel": (typeof valuesAp[3] == "undefined") ? "" : valuesAp[3],
-                    "Privacy": (typeof valuesAp[5] == "undefined") ? "" : valuesAp[5],
-                    "Cipher": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0]) : valuesAp[6],
-                    "Authentication": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1]) : valuesAp[7],
-                    "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12]) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13]),
+                    "macAddress": valuesAp[0], 
+                    "channel": (typeof valuesAp[3] == "undefined") ? "" : valuesAp[3].trim(),
+                    "Privacy": (typeof valuesAp[5] == "undefined") ? "" : valuesAp[5].trim(),
+                    "Cipher": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim(),
+                    "Authentication": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim(),
+                    "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12]) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13].trim()),
                     "data": r.now().inTimezone("+01:00").toEpochTime(),
                     "Power": pwr,
                     "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("UNKNOWN")

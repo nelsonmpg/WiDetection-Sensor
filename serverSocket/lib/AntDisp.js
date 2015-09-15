@@ -18,9 +18,10 @@ module.exports.insertAntDisp = function (valuesHst, client) {
               row.eq(null),
               {
                 "nomeAntena": client,
-                "host": [{"macAddress": valuesHst[0],
+                "host": [{
+                    "macAddress": valuesHst[0],
                     "data": r.now().inTimezone("+01:00").toEpochTime(),
-                    "Power": (typeof valuesHst[3] == "undefined") ? "" : valuesHst[3],
+                    "Power": (typeof valuesHst[3] == "undefined") ? "" : valuesHst[3].trim(),
                     "BSSID": (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, ""),
                     "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesHst[0].substring(0, 8)).getField("vendor").default("UNKNOWN")
                   }]
@@ -34,7 +35,7 @@ module.exports.insertAntDisp = function (valuesHst, client) {
                           {
                             "macAddress": valuesHst[0],
                             "data": r.now().inTimezone("+01:00").toEpochTime(),
-                            "Power": (typeof valuesHst[3] == "undefined") ? "" : valuesHst[3],
+                            "Power": (typeof valuesHst[3] == "undefined") ? "" : valuesHst[3].trim(),
                             "BSSID": (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, ""),
                             "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesHst[0].substring(0, 8)).getField("vendor").default("UNKNOWN")
                           },
@@ -45,7 +46,7 @@ module.exports.insertAntDisp = function (valuesHst, client) {
                 "host": row("host").append({
                   "macAddress": valuesHst[0],
                   "data": r.now().inTimezone("+01:00").toEpochTime(),
-                  "Power": (typeof valuesHst[3] == "undefined") ? "" : valuesHst[3],
+                  "Power": (typeof valuesHst[3] == "undefined") ? "" : valuesHst[3].trim(),
                   "BSSID": (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, ""),
                   "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesHst[0].substring(0, 8)).getField("vendor").default("UNKNOWN")
                 })}));
