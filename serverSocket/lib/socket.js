@@ -17,7 +17,7 @@ var folderroot = "";
  * Configuracao do script que detecta alteracoes no ficheiro retendido 
  * @type @exp;chokidar@call;watch
  */
-var watcher;
+//var watcher;
 
 // script de copneccao com a base de daods
 var connectdb = require("./ConnectDb");
@@ -52,7 +52,7 @@ var ServerSocket = function (port, configdb, sensorcfg) {
   
   fileRead = folderroot + fileRead;
   console.log(fileRead);
-  watcher = chokidar.watch(fileRead, {
+  this.watcher = chokidar.watch(fileRead, {
   ignored: /[\/\\]\./,
   persistent: true
 }); //filefolder
@@ -132,7 +132,7 @@ ServerSocket.prototype.start = function () {
   activeant.insertPlant(self.clienteSend, self.plant);
 
 // script que deteta alteracoes efectuadas no ficheiro especifico
-  watcher.on('change', function (path) {
+  self.watcher.on('change', function (path) {
     lineReader.eachLine(fileRead, function (line) {
       if (line[2] == ":" && line.length > 4) {
         var result = line.split(", ");
