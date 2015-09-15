@@ -17,14 +17,14 @@ module.exports.insertDispMovel = function (valsHost, client) {
               row.eq(null),
               {
                 "macAddress": valsHost[0],
-                "nameVendor": r.db("Prefix").table("tblPrefix").get(valsHost[0].substring(0, 8)).getField("vendor").default(""),
+                "nameVendor": r.db("Prefix").table("tblPrefix").get(valsHost[0].substring(0, 8)).getField("vendor").default("UNKNOWN"),
                 "Probed_ESSIDs": (typeof valsHost[6] == "undefined") ? [] : valsHost[6].replace(/(\r\n|\n|\r)/gm, "").split(","),
                 "disp": [{
                     name: client,
                     "First_time": r.now().inTimezone("+01:00").toEpochTime(),
                     "values": [{
                         "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-                        "Power": (typeof valsHost[3] == "undefined") ? "" : valsHost[3],
+                        "Power": (typeof valsHost[3] == "undefined") ? "" : valsHost[3].trim(),
                         "BSSID": (typeof valsHost[5] == "undefined") ? "" : valsHost[5].replace(/(,| |\r\n|\n|\r)/g, "")
                       }]
                   }]
@@ -42,13 +42,13 @@ module.exports.insertDispMovel = function (valsHost, client) {
                           d.merge({
                             "values": d('values').append({
                               "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-                              "Power": (typeof valsHost[3] == "undefined") ? "" : valsHost[3],
+                              "Power": (typeof valsHost[3] == "undefined") ? "" : valsHost[3].trim(),
                               "BSSID": (typeof valsHost[5] == "undefined") ? "" : valsHost[5].replace(/(,| |\r\n|\n|\r)/g, "")
                             })}),
                           d);
                 })}), {
         "macAddress": valsHost[0],
-        "nameVendor": r.db("Prefix").table("tblPrefix").get(valsHost[0].substring(0, 8)).getField("vendor").default(""),
+        "nameVendor": r.db("Prefix").table("tblPrefix").get(valsHost[0].substring(0, 8)).getField("vendor").default("UNKNOWN"),
         "Probed_ESSIDs": r.db(self.dbConfig.db)
                 .table("DispMoveis")
                 .get(valsHost[0])("Probed_ESSIDs")
@@ -58,7 +58,7 @@ module.exports.insertDispMovel = function (valsHost, client) {
           "First_time": r.now().inTimezone("+01:00").toEpochTime(),
           "values": [{
               "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-              "Power": (typeof valsHost[3] == "undefined") ? "" : valsHost[3],
+              "Power": (typeof valsHost[3] == "undefined") ? "" : valsHost[3].trim(),
               "BSSID": (typeof valsHost[5] == "undefined") ? "" : valsHost[5].replace(/(,| |\r\n|\n|\r)/g, "")
             }]})
       }));
