@@ -137,7 +137,6 @@ ServerSocket.prototype.readAllLines = function (alllines) {
     if (line[2] == ":" && line.length > 4) {
       var result = line.split(", ");
       if (numberIsMacAddress(result[0])) {
-    console.log(line);
         var oldLine = localTable[result[0]];
         if (oldLine) {
           var a = result.slice();
@@ -185,6 +184,7 @@ ServerSocket.prototype.start = function () {
 ServerSocket.prototype.sendToDataBase = function (result2) {
   var self = this;
   var result = result2.slice();
+    console.log(result);
 
   // verificacao do tamanho do macaddress recebido
 //  if (result[0].trim().length == 17) {
@@ -249,11 +249,9 @@ process.on('uncaughtException', function (err) {
 var numberIsMacAddress = function (char) {
   var result = false;
   if (char.replace(/\s/g, "").length >= 17) {
-    console.log(char);
     var urlPattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/;
     if (char.match(urlPattern)) {
       result = true;
-      console.log(char);
     }
   }
   return result;
