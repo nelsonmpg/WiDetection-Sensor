@@ -118,25 +118,28 @@ var ServerSocket = function (port, configdb, sensorcfg) {
 
 // script que deteta alteracoes efectuadas no ficheiro especifico
   watcher.on('change', function (path) {
-    lineReader.eachLine(fileRead, function (line) {
+    lineReader.eachLine(fileRead, function (line2) {
+      var line = line2.slice();
       if (line[2] == ":" && line.length > 4) {
         var result = line.split(", ");
-        var oldLine = localTable[result[0]];
-        if (oldLine) {
-          var a = result.slice();
+        if (numberIsMacAddress(result[0])) {
+          var oldLine = localTable[result[0]];
+          if (oldLine) {
+            var a = result.slice();
 
-          // verifica se duas strings sao iguais
-          var diff = jsdiff.diffTrimmedLines(oldLine, line);
-          diff.forEach(function (part) {
-            if (part.added) {
-              localTable[a[0]] = line;
-              self.sendToDataBase(a);
-            }
-          });
-        } else {
-          var b = result.slice();
-          localTable[b[0]] = line;
-          self.sendToDataBase(b);
+            // verifica se duas strings sao iguais
+            var diff = jsdiff.diffTrimmedLines(oldLine, line);
+            diff.forEach(function (part) {
+              if (part.added) {
+                localTable[a[0]] = line;
+                self.sendToDataBase(a);
+              }
+            });
+          } else {
+            var b = result.slice();
+            localTable[b[0]] = line;
+            self.sendToDataBase(b);
+          }
         }
       }
     }).then(function () {
@@ -167,29 +170,51 @@ ServerSocket.prototype.start = function () {
  * @param {type} result
  * @returns {undefined}
  */
-ServerSocket.prototype.sendToDataBase = function (result) {
+ServerSocket.prototype.sendToDataBase = function (result2) {
   var self = this;
+  var result = result2.slice();
 
   // verificacao do tamanho do macaddress recebido
-  if (result[0].trim().length == 17) {
-    if (result.length < 8) {
-      var valsHost = result.slice();
+//  if (result[0].trim().length == 17) {
+  if (result.length < 8) {
+
+    var pwr = (typeof result[3] == "undefined") ? "" : result[3].trim();
+    if ((pwr * 1) != -1 && pwr.trim() != "" && (pwr * 1) < 10 && (pwr * 1) > -140) {
       var valuesHst = result.slice();
 
-      dispmoveis.insertDispMovel(valsHost, self.clienteSend);
-      antdisp.insertAntDisp(valuesHst, self.clienteSend);
+      var mac = valuesHst[0];
+      var bssid = valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, "");
+      var probes = valuesHst[6].replace(/(\r\n|\n|\r)/gm, "").split(",");
 
-    } else if (result.length == 13 || result.length == 14 || result.length == 15) {
-      // if de verificacao do tamanho do array < 8
+      dispmoveis.insertDispMovel(self.clienteSend, mac, pwr, bssid, probes);
+      antdisp.insertAntDisp(self.clienteSend, mac, pwr, bssid);
 
-      var valsAp = result.slice();
-      var valuesAp = result.slice();
+    }
+  } else if (result.length == 13 || result.length == 14 || result.length == 15) {
+    // if de verificacao do tamanho do array < 8
 
-      dispap.insertDispAp(valsAp, self.clienteSend);
-      antap.insertAntAp(valuesAp, self.clienteSend);
+    var pwr = (result.length == 14) ? ((typeof result[7] == "undefined") ? "-1" : result[7]) : ((typeof result[8] == "undefined") ? "-1" : result[8]);
+    if ((pwr * 1) != -1 && pwr.trim() != "" && (pwr * 1) < 10 && (pwr * 1) > -140) {
 
-    } // else da verificacao do tamanho do arraymais de 8
-  } // fim verificacao do tamanho do macaddress
+      var spd = result[4].trim();
+      if (spd != "" && (spd * 1) != -1) {
+        var valuesAp = result.slice();
+        var valsAp = result.slice();
+        
+        var mac = valuesAp[0];
+        var chnl = valuesAp[3].trim();
+        var priv = valuesAp[5].trim();
+        var cphr = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim();
+        var ath = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim();
+        var essid = (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12].trim()) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13].trim());
+
+        dispap.insertDispAp(valsAp, self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid, spd);
+        antap.insertAntAp(valuesAp, self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid);
+
+      }
+    }
+  } // else da verificacao do tamanho do arraymais de 8
+//  } // fim verificacao do tamanho do macaddress
 };
 
 /**
@@ -208,5 +233,15 @@ process.on("message", function (data) {
 process.on('uncaughtException', function (err) {
   console.log('Excepcao capturada: ' + err);
 });
+
+var numberIsMacAddress = function (char) {
+  var result = false;
+  var urlPattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/;
+  if (char.match(urlPattern)) {
+    result = true;
+    console.log(char);
+  }
+  return result;
+};
 
 module.exports = ServerSocket;

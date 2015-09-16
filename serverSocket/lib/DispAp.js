@@ -11,75 +11,72 @@ var self = this;
  * @param {type} client
  * @returns {undefined}
  */
-module.exports.insertDispAp = function (valsAp, client) {
-  var pwr = (valsAp.length == 14) ? ((typeof valsAp[7] == "undefined") ? "-1" : valsAp[7]) : ((typeof valsAp[8] == "undefined") ? "-1" : valsAp[8]);
-  if ((pwr * 1) != -1 && pwr.trim() != "" && (pwr * 1) < 10 &&  (pwr * 1) > -140) {
-    r.connect(self.dbData).then(function (conn) {
-      return r.db(self.dbConfig.db).table("DispAp").get(valsAp[0]).replace(function (row) {
-        return r.branch(
-                row.eq(null),
-                {
-                  "macAddress": valsAp[0],
-                  "nameVendor": r.db("Prefix").table("tblPrefix").get(valsAp[0].substring(0, 8)).getField("vendor").default("UNKNOWN"),
-                  "channel": (typeof valsAp[3] == "undefined") ? "" : valsAp[3].trim(),
-                  "Speed": (typeof valsAp[4] == "undefined") ? "" : valsAp[4].trim(),
-                  "Privacy": (typeof valsAp[5] == "undefined") ? "" : valsAp[5].trim(),
-                  "Cipher": (valsAp.length == 14) ? ((typeof valsAp[6] == "undefined") ? "" : (typeof valsAp[6].split(",")[0] == "undefined") ? "" : valsAp[6].split(",")[0].trim()) : valsAp[6].trim(),
-                  "Authentication": (valsAp.length == 14) ? ((typeof valsAp[6] == "undefined") ? "" : (typeof valsAp[6].split(",")[1] == "undefined") ? "" : valsAp[6].split(",")[1].trim()) : valsAp[7].trim(),
-                  "ESSID": (valsAp.length == 14) ? ((typeof valsAp[12] == "undefined") ? "" : valsAp[12]) : ((typeof valsAp[13] == "undefined") ? "" : valsAp[13].trim()),
-                  "disp": [{
-                      name: client,
-                      "First_time": r.now().inTimezone("+01:00").toEpochTime(),
-                      "values": [{
-                          "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-                          "Power": pwr
-                        }]
-                    }]
-                },
-        r.branch(
-                row("disp")("name").contains(client),
-                row.merge({
-                  "channel": (typeof valsAp[3] == "undefined") ? "" : valsAp[3].trim(),
-                  "Speed": (typeof valsAp[4] == "undefined") ? "" : valsAp[4].trim(),
-                  "Privacy": (typeof valsAp[5] == "undefined") ? "" : valsAp[5].trim(),
-                  "Cipher": (valsAp.length == 14) ? ((typeof valsAp[6] == "undefined") ? "" : (typeof valsAp[6].split(",")[0] == "undefined") ? "" : valsAp[6].split(",")[0].trim()) : valsAp[6].trim(),
-                  "Authentication": (valsAp.length == 14) ? ((typeof valsAp[6] == "undefined") ? "" : (typeof valsAp[6].split(",")[1] == "undefined") ? "" : valsAp[6].split(",")[1].trim()) : valsAp[7].trim(),
-                  "ESSID": (valsAp.length == 14) ? ((typeof valsAp[12] == "undefined") ? "" : valsAp[12]) : ((typeof valsAp[13] == "undefined") ? "" : valsAp[13]),
-                  "disp": row('disp').map(function (d) {
-                    return r.branch(
-                            d('name').eq(client).default(false),
-                            d.merge({
-                              "values": d("values").append({
-                                "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-                                "Power": pwr
-                              })}),
-                            d);
-                  })}),
-                {"macAddress": valsAp[0],
-                  "nameVendor": r.db("Prefix").table("tblPrefix").get(valsAp[0].substring(0, 8)).getField("vendor").default("UNKNOWN"),
-                  "channel": (typeof valsAp[3] == "undefined") ? "" : valsAp[3].trim(),
-                  "Speed": (typeof valsAp[4] == "undefined") ? "" : valsAp[4].trim(),
-                  "Privacy": (typeof valsAp[5] == "undefined") ? "" : valsAp[5].trim(),
-                  "Cipher": (valsAp.length == 14) ? ((typeof valsAp[6] == "undefined") ? "" : (typeof valsAp[6].split(",")[0] == "undefined") ? "" : valsAp[6].split(",")[0].trim()) : valsAp[6].trim(),
-                  "Authentication": (valsAp.length == 14) ? ((typeof valsAp[6] == "undefined") ? "" : (typeof valsAp[6].split(",")[1] == "undefined") ? "" : valsAp[6].split(",")[1].trim()) : valsAp[7].trim(),
-                  "ESSID": (valsAp.length == 14) ? ((typeof valsAp[12] == "undefined") ? "" : valsAp[12]) : ((typeof valsAp[13] == "undefined") ? "" : valsAp[13].trim()),
-                  "disp": row('disp').append({
+module.exports.insertDispAp = function (valsAp, client, mac, pwr, chnl, priv, cphr, ath, essid, spd) {
+  r.connect(self.dbData).then(function (conn) {
+    return r.db(self.dbConfig.db).table("DispAp").get(mac).replace(function (row) {
+      return r.branch(
+              row.eq(null),
+              {
+                "macAddress": mac,
+                "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN"),
+                "channel": chnl,
+                "Speed": spd,
+                "Privacy": priv,
+                "Cipher": cphr,
+                "Authentication": ath,
+                "ESSID": essid,
+                "disp": [{
                     name: client,
                     "First_time": r.now().inTimezone("+01:00").toEpochTime(),
                     "values": [{
                         "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
                         "Power": pwr
                       }]
-                  })}));
-      }, {nonAtomic: true}).run(conn)
-              .finally(function () {
-                conn.close();
-              });
-    }).then(function (output) {
+                  }]
+              },
+      r.branch(
+              row("disp")("name").contains(client),
+              row.merge({
+                "channel": chnl,
+                "Speed": spd,
+                "Privacy": priv,
+                "Cipher": cphr,
+                "Authentication": ath,
+                "ESSID": essid,
+                "disp": row('disp').map(function (d) {
+                  return r.branch(
+                          d('name').eq(client).default(false),
+                          d.merge({
+                            "values": d("values").append({
+                              "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
+                              "Power": pwr
+                            })}),
+                          d);
+                })}),
+              {"macAddress": mac,
+                "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN"),
+                "channel": chnl,
+                "Speed": spd,
+                "Privacy": priv,
+                "Cipher": cphr,
+                "Authentication": ath,
+                "ESSID": essid,
+                "disp": row('disp').append({
+                  name: client,
+                  "First_time": r.now().inTimezone("+01:00").toEpochTime(),
+                  "values": [{
+                      "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
+                      "Power": pwr
+                    }]
+                })}));
+    }, {nonAtomic: true}).run(conn)
+            .finally(function () {
+              conn.close();
+            });
+  }).then(function (output) {
 //    console.log("Query Ap output:", output);
-    }).error(function (err) {
-      console.log("***************** Dispp Ap **************************");
-      console.log("Failed:", err);
-    });
-  }
+  }).error(function (err) {
+    console.log("***************** Dispp Ap **************************");
+    console.log("Failed:", err);
+  });
 };

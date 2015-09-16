@@ -11,9 +11,7 @@ var self = this;
  * @param {type} client
  * @returns {undefined}
  */
-module.exports.insertAntAp = function (valuesAp, client) {
-  var pwr = (valuesAp.length == 14) ? ((typeof valuesAp[7] == "undefined") ? "-1" : valuesAp[7]) : ((typeof valuesAp[8] == "undefined") ? "-1" : valuesAp[8]);
-  if ((pwr * 1) != -1 && pwr.trim() != "" && (pwr * 1) < 10 &&  (pwr * 1) > -140){
+module.exports.insertAntAp = function (valuesAp, client, mac, pwr, chnl, priv, cphr, ath, essid) {
     r.connect(self.dbData).then(function (conn) {
       return r.db(self.dbConfig.db).table("AntAp").get(client).replace(function (row) {
         return r.branch(
@@ -21,48 +19,48 @@ module.exports.insertAntAp = function (valuesAp, client) {
                 {
                   "nomeAntena": client,
                   "host": [{
-                      "macAddress": valuesAp[0],
-                      "channel": (typeof valuesAp[3] == "undefined") ? "" : valuesAp[3].trim(),
-                      "Privacy": (typeof valuesAp[5] == "undefined") ? "" : valuesAp[5].trim(),
-                      "Cipher": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim(),
-                      "Authentication": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim(),
-                      "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12].trim()) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13].trim()),
+                      "macAddress": mac,
+                      "channel": chnl,
+                      "Privacy": priv,
+                      "Cipher": cphr,
+                      "Authentication": ath,
+                      "ESSID": essid,
                       "data": r.now().inTimezone("+01:00").toEpochTime(),
                       "Power": pwr,
-                      "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("UNKNOWN")
+                      "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN")
                     }]
                 },
         r.branch(
-                row("host")("macAddress").contains(valuesAp[0]),
+                row("host")("macAddress").contains(mac),
                 row.merge({
                   "host": row("host").map(function (d) {
                     return r.branch(
-                            d("macAddress").eq(valuesAp[0]).default(false),
+                            d("macAddress").eq(mac).default(false),
                             {
-                              "macAddress": valuesAp[0],
-                              "channel": (typeof valuesAp[3] == "undefined") ? "" : valuesAp[3].trim(),
-                              "Privacy": (typeof valuesAp[5] == "undefined") ? "" : valuesAp[5].trim(), 
-                              "Cipher": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim(),
-                              "Authentication": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim(),
-                              "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12]) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13]),
+                              "macAddress": mac,
+                              "channel": chnl,
+                              "Privacy": priv, 
+                              "Cipher": cphr,
+                              "Authentication": ath,
+                              "ESSID": essid,
                               "data": r.now().inTimezone("+01:00").toEpochTime(),
                               "Power": pwr,
-                              "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("UNKNOWN")
+                              "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN")
                             }, d)
                   })
                 }),
                 {
                   "nomeAntena": client,
                   "host": row("host").append({
-                    "macAddress": valuesAp[0], 
-                    "channel": (typeof valuesAp[3] == "undefined") ? "" : valuesAp[3].trim(),
-                    "Privacy": (typeof valuesAp[5] == "undefined") ? "" : valuesAp[5].trim(),
-                    "Cipher": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim(),
-                    "Authentication": (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim(),
-                    "ESSID": (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12]) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13].trim()),
+                    "macAddress": mac, 
+                    "channel": chnl,
+                    "Privacy": priv,
+                    "Cipher": cphr,
+                    "Authentication": ath,
+                    "ESSID": essid,
                     "data": r.now().inTimezone("+01:00").toEpochTime(),
                     "Power": pwr,
-                    "nameVendor": r.db("Prefix").table("tblPrefix").get(valuesAp[0].substring(0, 8)).getField("vendor").default("UNKNOWN")
+                    "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN")
                   })}));
       }, {nonAtomic: true}).run(conn)
               .finally(function () {
@@ -74,5 +72,4 @@ module.exports.insertAntAp = function (valuesAp, client) {
       console.log("***************** Ant Ap **************************");
       console.log("Failed:", err);
     });
-  }
 };
