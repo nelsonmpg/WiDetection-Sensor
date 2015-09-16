@@ -196,6 +196,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
 
       var mac = valuesHst[0];
       var bssid = valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, "");
+      console.log(valuesHst[6]);
       var probes = valuesHst[6].replace(/(\r\n|\n|\r)/gm, "").split(",");
 
       dispmoveis.insertDispMovel(self.clienteSend, mac, pwr, bssid, probes);
