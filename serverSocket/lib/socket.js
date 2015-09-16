@@ -205,10 +205,10 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
     // if de verificacao do tamanho do array < 8
 
     var pwr = (result.length == 14) ? ((typeof result[7] == "undefined") ? "-1" : result[7]) : ((typeof result[8] == "undefined") ? "-1" : result[8]);
-    if ((pwr * 1) != -1 && pwr.trim() != "" && (pwr * 1) < 10 && (pwr * 1) > -140) {
+    if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
 
       var spd = result[4].trim();
-      if (spd != "" && (spd * 1) != -1) {
+      if (!isNaN(spd) /*spd != "" && (spd * 1) != -1*/) {
         var valuesAp = result.slice();
         var valsAp = result.slice();
 
@@ -247,10 +247,12 @@ process.on('uncaughtException', function (err) {
 
 var numberIsMacAddress = function (char) {
   var result = false;
-  var urlPattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/;
-  if (char.match(urlPattern)) {
-    result = true;
-    console.log(char);
+  if (char.replace(/\s/g, "").length < 17) {
+    var urlPattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/;
+    if (char.match(urlPattern)) {
+      result = true;
+      console.log(char);
+    }
   }
   return result;
 };
