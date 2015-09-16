@@ -248,7 +248,7 @@ process.on('uncaughtException', function (err) {
 
 var numberIsMacAddress = function (char) {
   var result = false;
-  if (char.replace(/\s/g, "").length < 17) {
+  if (char.replace(/\s/g, "").length >= 17) {
     console.log(char);
     var urlPattern = /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/;
     if (char.match(urlPattern)) {
