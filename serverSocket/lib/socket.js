@@ -134,8 +134,8 @@ ServerSocket.prototype.readAllLines = function (alllines) {
   var self = this;
   for (var i in alllines) {
     var line = alllines[i].slice();
-    console.log(line);
     if (line[2] == ":" && line.length > 4) {
+    console.log(line);
       var result = line.split(", ");
       if (numberIsMacAddress(result[0])) {
         var oldLine = localTable[result[0]];
