@@ -242,9 +242,9 @@ process.on("message", function (data) {
 });
 
 //excepcoes para os erros encontrados
-process.on('uncaughtException', function (err) {
-  console.log('Excepcao capturada: ' + err);
-});
+//process.on('uncaughtException', function (err) {
+//  console.log('Excepcao capturada: ' + err);
+//});
 
 var numberIsMacAddress = function (char) {
   var result = false;
