@@ -10,6 +10,7 @@ var chokidar = require('chokidar');
 var lineReader = require('line-reader');
 var shellInterval = require("shell-interval");
 var localTable = [];
+var manyLines = [];
 var fileRead = '/scanNetworks-01.csv';
 var folderroot = "";
 
@@ -118,34 +119,44 @@ var ServerSocket = function (port, configdb, sensorcfg) {
 
 // script que deteta alteracoes efectuadas no ficheiro especifico
   watcher.on('change', function (path) {
+    manyLines = [];
     lineReader.eachLine(fileRead, function (line2) {
-      var line = line2.slice();
-      if (line[2] == ":" && line.length > 4) {
-        var result = line.split(", ");
-        if (numberIsMacAddress(result[0])) {
-          var oldLine = localTable[result[0]];
-          if (oldLine) {
-            var a = result.slice();
-
-            // verifica se duas strings sao iguais
-            var diff = jsdiff.diffTrimmedLines(oldLine, line);
-            diff.forEach(function (part) {
-              if (part.added) {
-                localTable[a[0]] = line;
-                self.sendToDataBase(a);
-              }
-            });
-          } else {
-            var b = result.slice();
-            localTable[b[0]] = line;
-            self.sendToDataBase(b);
-          }
-        }
-      }
+      manyLines.push(line2);
     }).then(function () {
+      self.readAllLines(manyLines);
       console.log("I'm done!!");
     });
   });
+};
+
+
+ServerSocket.prototype.readAllLines = function (alllines) {
+  var self = this;
+  for (var i in alllines) {
+    var line = alllines[i].slice();
+    if (line[2] == ":" && line.length > 4) {
+      var result = line.split(", ");
+      if (numberIsMacAddress(result[0])) {
+        var oldLine = localTable[result[0]];
+        if (oldLine) {
+          var a = result.slice();
+
+          // verifica se duas strings sao iguais
+          var diff = jsdiff.diffTrimmedLines(oldLine, line);
+          diff.forEach(function (part) {
+            if (part.added) {
+              localTable[a[0]] = line;
+              self.sendToDataBase(a);
+            }
+          });
+        } else {
+          var b = result.slice();
+          localTable[b[0]] = line;
+          self.sendToDataBase(b);
+        }
+      }
+    }
+  }
 };
 
 /**
@@ -200,7 +211,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       if (spd != "" && (spd * 1) != -1) {
         var valuesAp = result.slice();
         var valsAp = result.slice();
-        
+
         var mac = valuesAp[0];
         var chnl = valuesAp[3].trim();
         var priv = valuesAp[5].trim();
