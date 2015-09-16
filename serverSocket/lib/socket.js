@@ -184,7 +184,6 @@ ServerSocket.prototype.start = function () {
 ServerSocket.prototype.sendToDataBase = function (result2) {
   var self = this;
   var result = result2.slice();
-    console.log(result);
 
   // verificacao do tamanho do macaddress recebido
 //  if (result[0].trim().length == 17) {
@@ -195,9 +194,8 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       var valuesHst = result.slice();
 
       var mac = valuesHst[0];
-      var bssid = valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, "");
-      console.log(valuesHst[6]);
-      var probes = valuesHst[6].replace(/(\r\n|\n|\r)/gm, "").split(",");
+      var bssid = (typeof valuesHst[6] == "undefined") ? "(notassociated)" : valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, "");
+      var probes = (typeof valuesHst[6] == "undefined") ? "[]" : valuesHst[6].replace(/(\r\n|\n|\r)/gm, "").split(",");
 
       dispmoveis.insertDispMovel(self.clienteSend, mac, pwr, bssid, probes);
       antdisp.insertAntDisp(self.clienteSend, mac, pwr, bssid);
