@@ -190,7 +190,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
   if (result.length < 8) {
 
     var pwr = (typeof result[3] == "undefined") ? "" : result[3].trim();
-    if ((pwr * 1) != -1 && pwr.trim() != "" && (pwr * 1) < 10 && (pwr * 1) > -140) {
+    if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
       var valuesHst = result.slice();
 
       var mac = valuesHst[0];
