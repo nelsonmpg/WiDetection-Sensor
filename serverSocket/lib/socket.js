@@ -123,7 +123,7 @@ var ServerSocket = function (port, configdb, sensorcfg) {
     lineReader.eachLine(fileRead, function (line2) {
       manyLines.push(line2);
     }).then(function () {
-      self.readAllLines(manyLines);
+      self.readAllLines(manyLines.slice());
       console.log("I'm done!!");
     });
   });
