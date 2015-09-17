@@ -207,7 +207,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
     var pwr = (result.length == 14) ? ((typeof result[7] == "undefined") ? "-1" : result[7]) : ((typeof result[8] == "undefined") ? "-1" : result[8]);
     if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
 
-      var chnl = valuesAp[3].trim();
+      var chnl = result[3].trim();
       var spd = result[4].trim();
       if (!isNaN(spd) && !isNaN(chnl)) {
         var valuesAp = result.slice();
