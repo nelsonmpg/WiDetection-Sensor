@@ -194,8 +194,8 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       var valuesHst = result.slice();
 
       var mac = valuesHst[0];
-      var bssid = (typeof valuesHst[6] == "undefined") ? "(notassociated)" : valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, "");
-      var probes = (typeof valuesHst[6] == "undefined") ? "[]" : valuesHst[6].replace(/(\r\n|\n|\r)/gm, "").split(",");
+      var bssid = (typeof valuesHst[5] == "undefined") ? "(notassociated)" : valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, "");
+      var probes = (typeof valuesHst[6] == "undefined") ? [] : valuesHst[6].replace(/(\r\n|\n|\r)/gm, "").split(",");
 
       dispmoveis.insertDispMovel(self.clienteSend, mac, pwr, bssid, probes);
       antdisp.insertAntDisp(self.clienteSend, mac, pwr, bssid);
@@ -207,13 +207,13 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
     var pwr = (result.length == 14) ? ((typeof result[7] == "undefined") ? "-1" : result[7]) : ((typeof result[8] == "undefined") ? "-1" : result[8]);
     if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
 
+      var chnl = valuesAp[3].trim();
       var spd = result[4].trim();
-      if (!isNaN(spd) /*spd != "" && (spd * 1) != -1*/) {
+      if (!isNaN(spd) && !isNaN(chnl)) {
         var valuesAp = result.slice();
         var valsAp = result.slice();
 
         var mac = valuesAp[0];
-        var chnl = valuesAp[3].trim();
         var priv = valuesAp[5].trim();
         var cphr = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim();
         var ath = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim();
