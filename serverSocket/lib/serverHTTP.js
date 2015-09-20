@@ -100,16 +100,16 @@ ServerHTTP.prototype.start = function () {
 
 // Devolde a ultima atualizacao do git
   this.app.get("/getGitLastUpdate", osquerys.getLastGitUpdate);
-  
+
 // Verifica se no ficheiro de configuracao foi selecionada a opcao de auto start
   this.checkServerSocketAutoStart();
 
-  console.log("  __          ___ ______ _           _".green.bold);
-  console.log("  \\ \\        / (_)  ____(_)         | |".green.bold);
-  console.log("   \\ \\  /\\  / / _| |__   _ _ __   __| | ___ _ __".green.bold);
-  console.log("    \\ \\/  \\/ / | |  __| | | '_ \\ / _` |/ _ \\ '__|".green.bold);
-  console.log("     \\  /\\  /  | | |    | | | | | (_| |  __/ |".green.bold);
-  console.log("      \\/  \\/   |_|_|    |_|_| |_|\\__,_|\\___|_|".green.bold);
+  console.log("__          __ _  _____         _               _    _                       ".green.bold);
+  console.log("\\ \\        / /(_)|  __ \\       | |             | |  (_)                   ".green.bold);
+  console.log(" \\ \\  /\\  / /  _ | |  | |  ___ | |_  ___   ___ | |_  _   ___   _ __       ".green.bold);
+  console.log("  \\ \\/  \\/ /  | || |  | | / _ \\| __|/ _ \\ / __|| __|| | / _ \\ | '_ \\  ".green.bold);
+  console.log("   \\  /\\  /   | || |__| ||  __/| |_|  __/| (__ | |_ | || (_) || | | |      ".green.bold);
+  console.log("    \\/  \\/    |_||_____/  \\___| \\__|\\___| \\___| \\__||_| \\___/ |_| |_|".green.bold);
   console.log('\nServer HTTP Wait %d'.green.bold, self.port);
 };
 
