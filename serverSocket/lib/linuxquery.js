@@ -64,7 +64,7 @@ module.exports.checkmonitorstart = function (req, res) {
 module.exports.createmonitor = function (req, res) {
   console.log("Create Monitor");
   // para executar este comando e necessario adicionar previlegios de root ao utilizador
-  cp.exec("sudo airmon-ng start '" + req.body.wifi + "' | grep 'monitor' | tr -s ' '| cut -d' ' -f5", function (error, stdout, stderr) {
+  cp.exec("sudo airmon-ng start '" + req.body.wifi + "' | grep 'monitor' | tr -s ' '| cut -d' ' -f9", function (error, stdout, stderr) {
     res.json(stdout);
     if (error !== null) {
       console.log('exec error: ' + error);
