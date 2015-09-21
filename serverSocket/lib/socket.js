@@ -194,8 +194,8 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       var valuesHst = result.slice();
 
       var mac = valuesHst[0];
-      var bssid = (typeof valuesHst[5] == "undefined") ? "(notassociated)" : valuesHst[5].replace(/(,| |\r\n|\n|\r)/g, "");
-      var probes = (typeof valuesHst[6] == "undefined") ? [] : valuesHst[6].replace(/(\r\n|\n|\r)/gm, "").split(",");
+      var bssid = (typeof valuesHst[5] == "undefined") ? "(notassociated)" : valuesHst[5].substring(0, 17).replace(/(,| |\r\n|\n|\r)/g, "");
+      var probes = (typeof valuesHst[5] == "undefined") ? [] : valuesHst[5].substring(18).replace(/(\r\n|\n|\r)/gm, "").split(",");
 
       dispmoveis.insertDispMovel(self.clienteSend, mac, pwr, bssid, probes);
       antdisp.insertAntDisp(self.clienteSend, mac, pwr, bssid);
