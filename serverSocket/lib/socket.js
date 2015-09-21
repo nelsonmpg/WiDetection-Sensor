@@ -195,7 +195,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
 
       var mac = valuesHst[0];
       var bssid = (typeof valuesHst[5] == "undefined") ? "(notassociated)" : valuesHst[5].substring(0, 17).replace(/(,| |\r\n|\n|\r)/g, "");
-      var prob = (typeof valuesHst[5] == "undefined") ? [] : valuesHst[5].substring(18);
+      var prob = (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].substring(18);
 
       var probes = (prob.length == 0) ? [] : prob.replace(/(\r\n|\n|\r)/gm, "").split(",");
       console.log(probes);
