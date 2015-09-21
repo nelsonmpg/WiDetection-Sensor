@@ -1,0 +1,15 @@
+#!/usr/bin/expect -f
+set timeout 5
+set pw "f8fg9awg9ahg08"
+spawn ssh -fN -R [lindex $argv 0]:localhost:22 root@185.15.22.55
+match_max 100000
+expect { 
+	expect "*yes*"
+	send -- "yes\r"
+}
+expect "*password:*"
+send -- "$pw\r"
+send -- "\r"
+expect eof
+
+
