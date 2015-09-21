@@ -198,7 +198,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       var prob = (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].substring(18);
 
       var probes = (prob.trim().length == 0) ? [] : prob.replace(/(\r\n|\n|\r)/gm, "").split(",");
-      console.log("-- " + probes);
+      console.log("-" + probes + "-");
       dispmoveis.insertDispMovel(self.clienteSend, mac, pwr, bssid, probes);
       antdisp.insertAntDisp(self.clienteSend, mac, pwr, bssid);
 
