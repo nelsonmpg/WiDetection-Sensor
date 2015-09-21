@@ -128,7 +128,7 @@ window.ConfigSiteView = Backbone.View.extend({
           }
           break;
         case "port":
-          if (($(obj).val().trim() * 1) > 0 && ($(obj).val().trim() * 1) < 65536) {
+          if (($(obj).val().trim() * 1) >= 10000 && ($(obj).val().trim() * 1) < 65536) {
             $(obj).parent().next().children().removeClass("fa-close color-red").addClass("fa-check color-green");
           } else {
             $(obj).parent().next().children().removeClass("fa-check color-green").addClass("fa-close color-red");
@@ -238,6 +238,7 @@ window.ConfigSiteView = Backbone.View.extend({
             function (data) {
               if (data.globalconfig != 0) {
                 $("#site-file-folder").val(data.filemonitor);
+                $("#ssh-port").val(data.sshport);
                 $("#site-name").val(data.databasesitename.replace(/[^\w]/gi, ''));
                 $("#site-pass").val(data.databasepass);
                 $("#server-ip").val(data.databasehost);
@@ -508,6 +509,7 @@ window.ConfigSiteView = Backbone.View.extend({
       self.inputchanged = false;
       var settings = {
         filemonitor: $("#site-file-folder").val(),
+        sshport: $("#ssh-port").val(),
         autostart: $("#myonoffswitch").is(":checked"),
         sitename: $("#site-name").val().replace(/[^\w]/gi, ''),
         host: $("#server-ip").val(),

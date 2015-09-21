@@ -87,6 +87,7 @@ module.exports.getinifileparams = function (req, res) {
     datavals = {
       globalconfig: config.global.config,
       filemonitor: config.global.filemonitor,
+      sshport: config.global.sshaccess,
       databasesitename: config.database.sitename,
       databasehost: config.database.host,
       databaseport: config.database.port,
@@ -117,6 +118,7 @@ module.exports.savesettings = function (req, res) {
           "\nconfig = true" +
           "\nfilemonitor = " + req.body.data.filemonitor +
           "\nautostart = " + req.body.data.autostart +
+          "\nsshaccess = " + req.body.data.sshport +  
           "\n\n; definicao da base de dados\n[database]" +
           "\nsitename= " + req.body.data.sitename +
           "\nhost = " + req.body.data.host +
