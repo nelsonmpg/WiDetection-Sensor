@@ -5,7 +5,6 @@ var cp = require('child_process');
 var net = require('net');
 var r = require('rethinkdb');
 var fs = require('fs');
-var chokidar = require('chokidar');
 var lineReader = require('line-reader');
 var shellInterval = require("shell-interval");
 var localTable = [];
@@ -116,17 +115,6 @@ var ServerSocket = function (port, configdb, sensorcfg) {
       console.log("The shell command was called five times. Exiting...");
     }
   });
-
-// script que deteta alteracoes efectuadas no ficheiro especifico
-//  watcher.on('change', function (path) {
-//    manyLines = [];
-//    lineReader.eachLine(fileRead, function (line2) {
-//      manyLines.push(line2);
-//    }).then(function () {
-//      self.readAllLines(manyLines.slice());
-//      console.log("I'm done!!");
-//    });
-//  });
 };
 
 
@@ -172,18 +160,16 @@ ServerSocket.prototype.start = function () {
 
   fs.watch(folderroot, function (event, filename) {
     console.log('event is: ' + event);
-    console.log(event, "change" + " - " + filename, fileRead.split("/").slice(-1)[0]);
-    console.log(fileRead);
-    if (event == "change" && filename == fileRead.split("/").slice(-1)[0]) {
+    if (event === "change" && filename === fileRead.split("/").slice(-1)[0]) {
       if (filename) {
         console.log('filename provided: ' + filename);
-        //    manyLines = [];
-//    lineReader.eachLine(fileRead, function (line2) {
-//      manyLines.push(line2);
-//    }).then(function () {
-//      self.readAllLines(manyLines.slice());
-//      console.log("I'm done!!");
-//    });
+        manyLines = [];
+        lineReader.eachLine(fileRead, function (line2) {
+          manyLines.push(line2);
+        }).then(function () {
+          self.readAllLines(manyLines.slice());
+          console.log("I'm done!!");
+        });
       } else {
         console.log('filename not provided');
       }
