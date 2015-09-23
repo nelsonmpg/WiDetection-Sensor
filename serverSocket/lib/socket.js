@@ -170,14 +170,14 @@ ServerSocket.prototype.start = function () {
   // insere ou atualiza a planta 
   activeant.insertPlant(self.clienteSend, self.plant);
 
-  fs.watch(folderroot, function (event, filename) {
-    console.log('event is: ' + event);
-    if (filename) {
-      console.log('filename provided: ' + filename);
-    } else {
-      console.log('filename not provided');
-    }
-  });
+//  fs.watch(folderroot, function (event, filename) {
+//    console.log('event is: ' + event);
+//    if (filename) {
+//      console.log('filename provided: ' + filename);
+//    } else {
+//      console.log('filename not provided');
+//    }
+//  });
 
   this.serverSck.listen();
 };

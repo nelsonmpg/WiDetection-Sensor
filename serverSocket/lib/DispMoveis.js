@@ -67,7 +67,7 @@ module.exports.insertDispMovel = function (client, mac, pwr, bssid, probes) {
               conn.close();
             });
   }).then(function (output) {
-    console.log("Disp Moveis -> ", client, mac, pwr, bssid, probes);
+//    console.log("Disp Moveis -> ", client, mac, pwr, bssid, probes);
     console.log("Query Disp output:\n", output);
   }).error(function (err) {
     console.log("***************** Dispp Moveis **************************");
