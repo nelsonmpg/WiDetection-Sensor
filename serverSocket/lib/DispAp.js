@@ -74,7 +74,7 @@ module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath,
               conn.close();
             });
   }).then(function (output) {
-    if (output.errors == 1) {
+    if (output.changes != 1 && output.replaced != 1) {
       console.log("Disp Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid, spd);
       console.log("Query Disp Ap output:\n", output);
     }
