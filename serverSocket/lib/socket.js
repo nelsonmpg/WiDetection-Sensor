@@ -157,14 +157,17 @@ ServerSocket.prototype.start = function () {
     console.log('event is: ' + event);
     if (event === "change" && filename === fileRead.split("/").slice(-1)[0]) {
       if (filename) {
-        console.log('filename provided: ' + filename);
-        manyLines = [];
-        lineReader.eachLine(fileRead, function (line2) {
-          manyLines.push(line2);
-        }).then(function () {
-          self.readAllLines(manyLines.slice());
-          console.log("I'm done!!");
-        });
+        console.log("Start TimeOut.");
+        setTimeout(function () {
+          console.log('filename provided: ' + filename);
+          manyLines = [];
+          lineReader.eachLine(fileRead, function (line2) {
+            manyLines.push(line2);
+          }).then(function () {
+            self.readAllLines(manyLines.slice());
+            console.log("I'm done!!");
+          });
+        }, 200);
       } else {
         console.log('filename not provided');
       }
