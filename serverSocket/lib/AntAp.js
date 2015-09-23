@@ -11,48 +11,15 @@ var self = this;
  * @param {type} client
  * @returns {undefined}
  */
-module.exports.insertAntAp = function (valuesAp, client, mac, pwr, chnl, priv, cphr, ath, essid) {
-    r.connect(self.dbData).then(function (conn) {
-      return r.db(self.dbConfig.db).table("AntAp").get(client).replace(function (row) {
-        return r.branch(
-                row.eq(null),
-                {
-                  "nomeAntena": client,
-                  "host": [{
-                      "macAddress": mac,
-                      "channel": chnl,
-                      "Privacy": priv,
-                      "Cipher": cphr,
-                      "Authentication": ath,
-                      "ESSID": essid,
-                      "data": r.now().inTimezone("+01:00").toEpochTime(),
-                      "Power": pwr,
-                      "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN")
-                    }]
-                },
-        r.branch(
-                row("host")("macAddress").contains(mac),
-                row.merge({
-                  "host": row("host").map(function (d) {
-                    return r.branch(
-                            d("macAddress").eq(mac).default(false),
-                            {
-                              "macAddress": mac,
-                              "channel": chnl,
-                              "Privacy": priv, 
-                              "Cipher": cphr,
-                              "Authentication": ath,
-                              "ESSID": essid,
-                              "data": r.now().inTimezone("+01:00").toEpochTime(),
-                              "Power": pwr,
-                              "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN")
-                            }, d)
-                  })
-                }),
-                {
-                  "nomeAntena": client,
-                  "host": row("host").append({
-                    "macAddress": mac, 
+module.exports.insertAntAp = function (client, mac, pwr, chnl, priv, cphr, ath, essid) {
+  r.connect(self.dbData).then(function (conn) {
+    return r.db(self.dbConfig.db).table("AntAp").get(client).replace(function (row) {
+      return r.branch(
+              row.eq(null),
+              {
+                "nomeAntena": client,
+                "host": [{
+                    "macAddress": mac,
                     "channel": chnl,
                     "Privacy": priv,
                     "Cipher": cphr,
@@ -61,15 +28,49 @@ module.exports.insertAntAp = function (valuesAp, client, mac, pwr, chnl, priv, c
                     "data": r.now().inTimezone("+01:00").toEpochTime(),
                     "Power": pwr,
                     "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN")
-                  })}));
-      }, {nonAtomic: true}).run(conn)
-              .finally(function () {
-                conn.close();
-              });
-    }).then(function (output) {
-//    console.log("Query output:", output);
-    }).error(function (err) {
-      console.log("***************** Ant Ap **************************");
-      console.log("Failed:", err);
-    });
+                  }]
+              },
+      r.branch(
+              row("host")("macAddress").contains(mac),
+              row.merge({
+                "host": row("host").map(function (d) {
+                  return r.branch(
+                          d("macAddress").eq(mac).default(false),
+                          {
+                            "macAddress": mac,
+                            "channel": chnl,
+                            "Privacy": priv,
+                            "Cipher": cphr,
+                            "Authentication": ath,
+                            "ESSID": essid,
+                            "data": r.now().inTimezone("+01:00").toEpochTime(),
+                            "Power": pwr,
+                            "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN")
+                          }, d)
+                })
+              }),
+              {
+                "nomeAntena": client,
+                "host": row("host").append({
+                  "macAddress": mac,
+                  "channel": chnl,
+                  "Privacy": priv,
+                  "Cipher": cphr,
+                  "Authentication": ath,
+                  "ESSID": essid,
+                  "data": r.now().inTimezone("+01:00").toEpochTime(),
+                  "Power": pwr,
+                  "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN")
+                })}));
+    }, {nonAtomic: true}).run(conn)
+            .finally(function () {
+              conn.close();
+            });
+  }).then(function (output) {
+    console.log("Ant Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid);
+    console.log("Query output:", output);
+  }).error(function (err) {
+    console.log("***************** Ant Ap **************************");
+    console.log("Failed:", err);
+  });
 };

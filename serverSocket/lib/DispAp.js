@@ -11,7 +11,7 @@ var self = this;
  * @param {type} client
  * @returns {undefined}
  */
-module.exports.insertDispAp = function (valsAp, client, mac, pwr, chnl, priv, cphr, ath, essid, spd) {
+module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath, essid, spd) {
   r.connect(self.dbData).then(function (conn) {
     return r.db(self.dbConfig.db).table("DispAp").get(mac).replace(function (row) {
       return r.branch(
@@ -74,7 +74,8 @@ module.exports.insertDispAp = function (valsAp, client, mac, pwr, chnl, priv, cp
               conn.close();
             });
   }).then(function (output) {
-//    console.log("Query Ap output:", output);
+    console.log("Disp Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid, spd);
+    console.log("Query Ap output:", output);
   }).error(function (err) {
     console.log("***************** Dispp Ap **************************");
     console.log("Failed:", err);

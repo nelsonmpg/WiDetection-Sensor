@@ -5,7 +5,6 @@ var cp = require('child_process');
 var net = require('net');
 var r = require('rethinkdb');
 var fs = require('fs');
-var jsdiff = require('diff');
 var chokidar = require('chokidar');
 var lineReader = require('line-reader');
 var shellInterval = require("shell-interval");
@@ -55,7 +54,8 @@ var ServerSocket = function (port, configdb, sensorcfg) {
   console.log(fileRead);
   watcher = chokidar.watch(fileRead, {
     ignored: /[\/\\]\./,
-    persistent: true
+    persistent: true,
+    atomic: true
   }); //filefolder
 
 // consiguracao dod acesso a base de dados
@@ -142,13 +142,10 @@ ServerSocket.prototype.readAllLines = function (alllines) {
           var a = result.slice();
 
           // verifica se duas strings sao iguais
-          var diff = jsdiff.diffTrimmedLines(oldLine, line);
-          diff.forEach(function (part) {
-            if (part.added) {
-              localTable[a[0]] = line;
-              self.sendToDataBase(a);
-            }
-          });
+          if (oldLine !== line) {
+            localTable[a[0]] = line;
+            self.sendToDataBase(a);
+          }
         } else {
           var b = result.slice();
           localTable[b[0]] = line;
@@ -172,6 +169,15 @@ ServerSocket.prototype.start = function () {
 
   // insere ou atualiza a planta 
   activeant.insertPlant(self.clienteSend, self.plant);
+
+  fs.watch(fileRead, function (event, filename) {
+    console.log('event is: ' + event);
+    if (filename) {
+      console.log('filename provided: ' + filename);
+    } else {
+      console.log('filename not provided');
+    }
+  });
 
   this.serverSck.listen();
 };
@@ -198,7 +204,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       var prob = (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].substring(18);
 
       var probes = (prob.trim().length == 0) ? [] : prob.replace(/(\r\n|\n|\r)/gm, "").split(",");
-      console.log("-" + probes + "-");
+
       dispmoveis.insertDispMovel(self.clienteSend, mac, pwr, bssid, probes);
       antdisp.insertAntDisp(self.clienteSend, mac, pwr, bssid);
 
