@@ -227,8 +227,8 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
         var ath = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim();
         var essid = (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12].trim()) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13].trim());
 
-        dispap.insertDispAp(valsAp, self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid, spd);
-        antap.insertAntAp(valuesAp, self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid);
+        dispap.insertDispAp(self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid, spd);
+        antap.insertAntAp(self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid);
 
       }
     }
