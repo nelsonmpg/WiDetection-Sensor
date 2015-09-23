@@ -170,7 +170,7 @@ ServerSocket.prototype.start = function () {
   // insere ou atualiza a planta 
   activeant.insertPlant(self.clienteSend, self.plant);
 
-  fs.watch(fileRead, function (event, filename) {
+  fs.watch(folderroot, function (event, filename) {
     console.log('event is: ' + event);
     if (filename) {
       console.log('filename provided: ' + filename);
