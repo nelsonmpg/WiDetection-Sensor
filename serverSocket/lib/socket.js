@@ -51,11 +51,6 @@ var ServerSocket = function (port, configdb, sensorcfg) {
 
   fileRead = folderroot + fileRead;
   console.log(fileRead);
-  watcher = chokidar.watch(fileRead, {
-    ignored: /[\/\\]\./,
-    persistent: true,
-    atomic: true
-  }); //filefolder
 
 // consiguracao dod acesso a base de dados
   this.dbData = {
