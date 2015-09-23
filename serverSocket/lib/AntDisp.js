@@ -12,7 +12,6 @@ var self = this;
  * @returns {undefined}
  */
 module.exports.insertAntDisp = function (client, mac, pwr, bssid) {
-    console.log("Ant Disp -> ", client, mac, pwr, bssid);
   r.connect(self.dbData).then(function (conn) {
     return r.db(self.dbConfig.db).table("AntDisp").get(client).replace(function (row) {
       return r.branch(
@@ -56,6 +55,7 @@ module.exports.insertAntDisp = function (client, mac, pwr, bssid) {
               conn.close();
             });
   }).then(function (output) {
+    console.log("Ant Disp -> ", client, mac, pwr, bssid);
     console.log("Query output:", output);
   }).error(function (err) {
     console.log("***************** Ant Disp **************************");

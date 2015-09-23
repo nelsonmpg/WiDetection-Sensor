@@ -12,7 +12,6 @@ var self = this;
  * @returns {undefined}
  */
 module.exports.insertAntAp = function (client, mac, pwr, chnl, priv, cphr, ath, essid) {
-    console.log("Ant Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid);
   r.connect(self.dbData).then(function (conn) {
     return r.db(self.dbConfig.db).table("AntAp").get(client).replace(function (row) {
       return r.branch(
@@ -68,6 +67,7 @@ module.exports.insertAntAp = function (client, mac, pwr, chnl, priv, cphr, ath, 
               conn.close();
             });
   }).then(function (output) {
+    console.log("Ant Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid);
     console.log("Query output:", output);
   }).error(function (err) {
     console.log("***************** Ant Ap **************************");
