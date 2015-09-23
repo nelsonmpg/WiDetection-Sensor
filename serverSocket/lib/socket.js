@@ -118,15 +118,15 @@ var ServerSocket = function (port, configdb, sensorcfg) {
   });
 
 // script que deteta alteracoes efectuadas no ficheiro especifico
-  watcher.on('change', function (path) {
-    manyLines = [];
-    lineReader.eachLine(fileRead, function (line2) {
-      manyLines.push(line2);
-    }).then(function () {
-      self.readAllLines(manyLines.slice());
-      console.log("I'm done!!");
-    });
-  });
+//  watcher.on('change', function (path) {
+//    manyLines = [];
+//    lineReader.eachLine(fileRead, function (line2) {
+//      manyLines.push(line2);
+//    }).then(function () {
+//      self.readAllLines(manyLines.slice());
+//      console.log("I'm done!!");
+//    });
+//  });
 };
 
 
@@ -170,7 +170,7 @@ ServerSocket.prototype.start = function () {
   // insere ou atualiza a planta 
   activeant.insertPlant(self.clienteSend, self.plant);
 
-  fs.watch(folderroot, function (event, filename) {
+  fs.watch(fileRead, function (event, filename) {
     console.log('event is: ' + event);
     if (filename) {
       console.log('filename provided: ' + filename);
