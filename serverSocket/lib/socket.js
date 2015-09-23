@@ -172,8 +172,9 @@ ServerSocket.prototype.start = function () {
 
   fs.watch(folderroot, function (event, filename) {
     console.log('event is: ' + event);
-    console.log(event, "change" + " - " + folderroot + filename, fileRead);
-    if (event == "change" && folderroot + filename == fileRead) {
+    console.log(event, "change" + " - " + filename, fileRead.split("/").slice(-1)[0]);
+    console.log(fileRead);
+    if (event == "change" && filename == fileRead.split("/").slice(-1)[0]) {
       if (filename) {
         console.log('filename provided: ' + filename);
         //    manyLines = [];
