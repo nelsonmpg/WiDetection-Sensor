@@ -13,11 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "*",
-    "chokidar": "^1.0.5",
     "colors": "*",
     "crypto": "0.0.3",
     "debug": "*",
-    "diff": "^2.0.2",
     "express": "*",
     "ini": "*",
     "line-reader": "^0.2.4",

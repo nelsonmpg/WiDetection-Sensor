@@ -62,13 +62,15 @@ module.exports.insertAntAp = function (client, mac, pwr, chnl, priv, cphr, ath, 
                   "Power": pwr,
                   "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN")
                 })}));
-    }, {nonAtomic: true}).run(conn)
+    }, {nonAtomic: true, durability: "soft"}).run(conn)
             .finally(function () {
               conn.close();
             });
   }).then(function (output) {
-    console.log("Ant Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid);
-    console.log("Query output:", output);
+    if (output.errors == 1) {
+      console.log("Ant Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid);
+      console.log("Query Ant Ap output:\n", output);
+    }
   }).error(function (err) {
     console.log("***************** Ant Ap **************************");
     console.log("Failed:", err);

@@ -50,13 +50,15 @@ module.exports.insertAntDisp = function (client, mac, pwr, bssid) {
                   "BSSID": bssid,
                   "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN")
                 })}));
-    }, {nonAtomic: true}).run(conn)
+    }, {nonAtomic: true, durability: "soft"}).run(conn)
             .finally(function () {
               conn.close();
             });
   }).then(function (output) {
-    console.log("Ant Disp -> ", client, mac, pwr, bssid);
-    console.log("Query output:", output);
+    if (output.errors == 1) {
+      console.log("Ant Disp -> ", client, mac, pwr, bssid);
+      console.log("Query Ant Disp output:\n", output);
+    }
   }).error(function (err) {
     console.log("***************** Ant Disp **************************");
     console.log("Failed:", err);

@@ -62,13 +62,15 @@ module.exports.insertDispMovel = function (client, mac, pwr, bssid, probes) {
               "BSSID": bssid
             }]})
       }));
-    }, {nonAtomic: true}).run(conn)
+    }, {nonAtomic: true, durability: "soft"}).run(conn)
             .finally(function () {
               conn.close();
             });
   }).then(function (output) {
-    console.log("Disp Moveis -> ", client, mac, pwr, bssid, probes);
-    console.log("Query Disp output:\n", output);
+    if (output.errors == 1) {
+      console.log("Disp Moveis -> ", client, mac, pwr, bssid, probes);
+      console.log("Query Disp Moveis output:\n", output);
+    }
   }).error(function (err) {
     console.log("***************** Dispp Moveis **************************");
     console.log("Failed:", err);

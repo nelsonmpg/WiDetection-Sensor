@@ -69,13 +69,15 @@ module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath,
                       "Power": pwr
                     }]
                 })}));
-    }, {nonAtomic: true}).run(conn)
+    }, {nonAtomic: true, durability: "soft"}).run(conn)
             .finally(function () {
               conn.close();
             });
   }).then(function (output) {
-    console.log("Disp Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid, spd);
-    console.log("Query Ap output:", output);
+    if (output.errors == 1) {
+      console.log("Disp Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid, spd);
+      console.log("Query Disp Ap output:\n", output);
+    }
   }).error(function (err) {
     console.log("***************** Dispp Ap **************************");
     console.log("Failed:", err);
