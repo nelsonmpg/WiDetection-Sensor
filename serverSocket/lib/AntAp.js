@@ -67,10 +67,8 @@ module.exports.insertAntAp = function (client, mac, pwr, chnl, priv, cphr, ath, 
               conn.close();
             });
   }).then(function (output) {
-    if (output.changes != 1 && output.replaced != 1) {
       console.log("Ant Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid);
       console.log("Query Ant Ap output:\n", output);
-    }
   }).error(function (err) {
     console.log("***************** Ant Ap **************************");
     console.log("Failed:", err);

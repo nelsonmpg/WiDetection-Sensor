@@ -55,10 +55,8 @@ module.exports.insertAntDisp = function (client, mac, pwr, bssid) {
               conn.close();
             });
   }).then(function (output) {
-    if (output.changes != 1 && output.replaced != 1) {
       console.log("Ant Disp -> ", client, mac, pwr, bssid);
       console.log("Query Ant Disp output:\n", output);
-    }
   }).error(function (err) {
     console.log("***************** Ant Disp **************************");
     console.log("Failed:", err);
