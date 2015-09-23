@@ -190,7 +190,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
 //  if (result[0].trim().length == 17) {
   if (result.length < 8) {
 
-    var pwr = (typeof result[3] == "undefined") ? "" : result[3].trim();
+    var pwr = (typeof result[3] == "undefined") ? "" : result[3].trim() * 1;
     if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
       var valuesHst = result.slice();
 
@@ -207,14 +207,13 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
   } else if (result.length == 13 || result.length == 14 || result.length == 15) {
     // if de verificacao do tamanho do array < 8
 
-    var pwr = (result.length == 14) ? ((typeof result[7] == "undefined") ? "-1" : result[7]) : ((typeof result[8] == "undefined") ? "-1" : result[8]);
+    var pwr = (result.length == 14) ? ((typeof result[7] == "undefined") ? -1 : result[7] * 1) : ((typeof result[8] == "undefined") ? -1 : result[8] * 1);
     if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
 
-      var chnl = result[3].trim();
-      var spd = result[4].trim();
+      var chnl = result[3].trim() * 1;
+      var spd = result[4].trim() * 1;
       if (!isNaN(spd) && !isNaN(chnl)) {
         var valuesAp = result.slice();
-        var valsAp = result.slice();
 
         var mac = valuesAp[0];
         var priv = valuesAp[5].trim();
