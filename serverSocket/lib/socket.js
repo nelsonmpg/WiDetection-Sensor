@@ -170,12 +170,22 @@ ServerSocket.prototype.start = function () {
   // insere ou atualiza a planta 
   activeant.insertPlant(self.clienteSend, self.plant);
 
-  fs.watch(fileRead, function (event, filename) {
+  fs.watch(folderroot, function (event, filename) {
     console.log('event is: ' + event);
-    if (filename) {
-      console.log('filename provided: ' + filename);
-    } else {
-      console.log('filename not provided');
+    console.log(event, "change" + " - " + folderroot + filename, fileRead);
+    if (event == "change" && folderroot + filename == fileRead) {
+      if (filename) {
+        console.log('filename provided: ' + filename);
+        //    manyLines = [];
+//    lineReader.eachLine(fileRead, function (line2) {
+//      manyLines.push(line2);
+//    }).then(function () {
+//      self.readAllLines(manyLines.slice());
+//      console.log("I'm done!!");
+//    });
+      } else {
+        console.log('filename not provided');
+      }
     }
   });
 
