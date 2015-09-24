@@ -374,7 +374,7 @@ window.ConfigSiteView = Backbone.View.extend({
     if ($(".tab1").hasClass("active")) {
       $("#add-plant").attr("disabled", "disabled");
       $("#imgsensor").css("display", "none");
-      $("#Check-Position, #sensor-local, #sensor-name, #sensor-latitude, #sensor-longitude").attr("disabled", false);
+      $("#Check-Position, #sensor-local, #sensor-latitude, #sensor-longitude").attr("disabled", false);
       $("#sensor-posx, #sensor-posy").attr("disabled", "disabled");
     } else {
       $("#add-plant").attr("disabled", false);
@@ -390,7 +390,7 @@ window.ConfigSiteView = Backbone.View.extend({
         });
       }
       $("#sensor-posx, #sensor-posy").attr("disabled", false);
-      $("#Check-Position, #sensor-local, #sensor-name, #sensor-latitude, #sensor-longitude").attr("disabled", "disabled");
+      $("#Check-Position, #sensor-local, #sensor-latitude, #sensor-longitude").attr("disabled", "disabled");
     }
   },
   addimagenplant: function () {
