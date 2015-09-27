@@ -265,6 +265,7 @@ window.ConfigSiteView = Backbone.View.extend({
                 carregarmapa([["<h4>" + $("#sensor-name").val() + "</h4>", $("#sensor-latitude").val(), $("#sensor-longitude").val()]], $("#map-google")[0], self.selectnewposition);
                 self.validinifile = true;
               } else {
+                $("#Check-Position").click();
                 self.validinifile = false;
               }
               self.checkImputs();
