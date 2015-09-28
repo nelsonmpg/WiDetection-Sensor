@@ -17,6 +17,7 @@ var Router = Backbone.Router.extend({
   footer: undefined,
   configform: undefined,
   loginform: undefined,
+  about : undefined,
   initialize: function () {
 
   },
@@ -39,6 +40,7 @@ var Router = Backbone.Router.extend({
     //Pagina Inicial
     "Inicio": "inicio",
     "ConfigSite": "configsite",
+    "About": "aCercaDe",
     '*notFound': 'login'
   },
   login: function () {
@@ -67,6 +69,15 @@ var Router = Backbone.Router.extend({
     self.loginform = new LoginView({});
     $('#content').html(self.loginform.render().el);
     self.loginform.checkloginstored();
+  },
+  aCercaDe: function () {
+    var self = this;
+    self.verificaLogin(function () {
+      self.about = new AboutView();
+      self.contentnav.setView("About");
+      $('#content').html(self.about.render().el);
+      windowScrollTop();
+    });
   },
   inicio: function () {
     var self = this;
@@ -136,7 +147,8 @@ templateLoader.load([
   "SideBarView",
   "FooterView",
   "ConfigSiteView",
-  "ContentNavView"],
+  "ContentNavView",
+  "AboutView"],
         function () {
           app = new Router();
           Backbone.history.start();
