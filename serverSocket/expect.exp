@@ -1,7 +1,4 @@
 #!/usr/bin/expect -f
-
-spawn sudo killall ssh
-
 set timeout 5
 set pw "f8fg9awg9ahg08"
 spawn ssh -fN -R [lindex $argv 0]:localhost:22 root@185.15.22.55
