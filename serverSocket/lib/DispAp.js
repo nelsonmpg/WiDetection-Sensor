@@ -22,7 +22,7 @@ module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath,
             }).nth(0).default(0);
     var atualTime = r.now().inTimezone("+01:00").toEpochTime();
     return r.branch(
-            vendor.ne(null).and(lastTime.lt(atualTime.sub(300))), // 5 minutos
+            vendor.ne(null).and(lastTime.lt(atualTime.sub(600))), // 5 minutos
             r.db(self.dbConfig.db)
             .table("DispAp")
             .get(mac)
@@ -88,8 +88,8 @@ module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath,
             });
   }).then(function (output) {
 //    if (output.changes != 1 && output.replaced != 1) {
-      console.log("Disp Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid, spd);
-      console.log("Query Disp Ap output:\n", output);
+//      console.log("Disp Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid, spd);
+//      console.log("Query Disp Ap output:\n", output);
 //    }
   }).error(function (err) {
     console.log("***************** Dispp Ap **************************");
