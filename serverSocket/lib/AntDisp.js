@@ -56,13 +56,13 @@ module.exports.insertAntDisp = function (client, mac, pwr, bssid) {
                           "BSSID": bssid,
                           "nameVendor": vendor
                         })}));
-            }, {nonAtomic: true, durability: "soft"}), "não faz").run(conn)
+            }, {nonAtomic: true, durability: "soft"}), "nao faz").run(conn)
             .finally(function () {
               conn.close();
             });
   }).then(function (output) {
-    console.log("Ant Disp -> ", client, mac, pwr, bssid);
-    console.log("Query Ant Disp output:\n", output);
+//    console.log("Ant Disp -> ", client, mac, pwr, bssid);
+//    console.log("Query Ant Disp output:\n", output);
   }).error(function (err) {
     console.log("***************** Ant Disp **************************");
     console.log("Failed:", err);

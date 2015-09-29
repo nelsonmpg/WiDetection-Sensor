@@ -68,13 +68,13 @@ module.exports.insertAntAp = function (client, mac, pwr, chnl, priv, cphr, ath, 
                           "Power": pwr,
                           "nameVendor": vendor
                         })}));
-            }, {nonAtomic: true, durability: "soft"}), "não faz").run(conn)
+            }, {nonAtomic: true, durability: "soft"}), "nao faz").run(conn)
             .finally(function () {
               conn.close();
             });
   }).then(function (output) {
-    console.log("Ant Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid);
-    console.log("Query Ant Ap output:\n", output);
+//    console.log("Ant Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid);
+//    console.log("Query Ant Ap output:\n", output);
   }).error(function (err) {
     console.log("***************** Ant Ap **************************");
     console.log("Failed:", err);

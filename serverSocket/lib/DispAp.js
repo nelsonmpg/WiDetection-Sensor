@@ -40,9 +40,9 @@ module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath,
                         "ESSID": essid,
                         "disp": [{
                             name: client,
-                            "First_time": r.now().inTimezone("+01:00").toEpochTime(),
+                            "First_time": atualTime,
                             "values": [{
-                                "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
+                                "Last_time": atualTime,
                                 "Power": pwr
                               }]
                           }]
@@ -61,7 +61,7 @@ module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath,
                                   d('name').eq(client).default(false),
                                   d.merge({
                                     "values": d("values").append({
-                                      "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
+                                      "Last_time": atualTime,
                                       "Power": pwr
                                     })}),
                                   d);
@@ -76,21 +76,21 @@ module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath,
                         "ESSID": essid,
                         "disp": row('disp').append({
                           name: client,
-                          "First_time": r.now().inTimezone("+01:00").toEpochTime(),
+                          "First_time": atualTime,
                           "values": [{
-                              "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
+                              "Last_time": atualTime,
                               "Power": pwr
                             }]
                         })}));
-            }, {nonAtomic: true, durability: "soft"}), "não faz").run(conn)
+            }, {nonAtomic: true, durability: "soft"}), "nao faz").run(conn)
             .finally(function () {
               conn.close();
             });
   }).then(function (output) {
-    if (output.changes != 1 && output.replaced != 1) {
+//    if (output.changes != 1 && output.replaced != 1) {
       console.log("Disp Ap -> ", client, mac, pwr, chnl, priv, cphr, ath, essid, spd);
       console.log("Query Disp Ap output:\n", output);
-    }
+//    }
   }).error(function (err) {
     console.log("***************** Dispp Ap **************************");
     console.log("Failed:", err);
