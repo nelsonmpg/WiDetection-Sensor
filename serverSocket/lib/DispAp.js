@@ -13,63 +13,76 @@ var self = this;
  */
 module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath, essid, spd) {
   r.connect(self.dbData).then(function (conn) {
-    return r.db(self.dbConfig.db).table("DispAp").get(mac).replace(function (row) {
-      return r.branch(
-              row.eq(null),
-              {
-                "macAddress": mac,
-                "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN"),
-                "channel": chnl,
-                "Speed": spd,
-                "Privacy": priv,
-                "Cipher": cphr,
-                "Authentication": ath,
-                "ESSID": essid,
-                "disp": [{
-                    name: client,
-                    "First_time": r.now().inTimezone("+01:00").toEpochTime(),
-                    "values": [{
-                        "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-                        "Power": pwr
-                      }]
-                  }]
-              },
-      r.branch(
-              row("disp")("name").contains(client),
-              row.merge({
-                "channel": chnl,
-                "Speed": spd,
-                "Privacy": priv,
-                "Cipher": cphr,
-                "Authentication": ath,
-                "ESSID": essid,
-                "disp": row('disp').map(function (d) {
-                  return r.branch(
-                          d('name').eq(client).default(false),
-                          d.merge({
-                            "values": d("values").append({
+    var vendor = r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default(null);
+    var lastTime = r.db(self.dbConfig.db)
+            .table("DispAp").get(mac)("disp")
+            .filter({name: "Sensor3"})("values")
+            .map(function (x) {
+      return  x.orderBy(r.desc(("Last_time"))).limit(1)("Last_time").nth(0);
+    }).nth(0);
+    var atualTime = r.now().inTimezone("+01:00").toEpochTime();
+    return r.branch(
+            vendor.ne(null).and(lastTime.lt(atualTime.sub(300000))), // 5 minutos
+            r.db(self.dbConfig.db)
+            .table("DispAp")
+            .get(mac)
+            .replace(function (row) {
+              return r.branch(
+                      row.eq(null),
+                      {
+                        "macAddress": mac,
+                        "nameVendor": vendor,
+                        "channel": chnl,
+                        "Speed": spd,
+                        "Privacy": priv,
+                        "Cipher": cphr,
+                        "Authentication": ath,
+                        "ESSID": essid,
+                        "disp": [{
+                            name: client,
+                            "First_time": r.now().inTimezone("+01:00").toEpochTime(),
+                            "values": [{
+                                "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
+                                "Power": pwr
+                              }]
+                          }]
+                      },
+              r.branch(
+                      row("disp")("name").contains(client),
+                      row.merge({
+                        "channel": chnl,
+                        "Speed": spd,
+                        "Privacy": priv,
+                        "Cipher": cphr,
+                        "Authentication": ath,
+                        "ESSID": essid,
+                        "disp": row('disp').map(function (d) {
+                          return r.branch(
+                                  d('name').eq(client).default(false),
+                                  d.merge({
+                                    "values": d("values").append({
+                                      "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
+                                      "Power": pwr
+                                    })}),
+                                  d);
+                        })}),
+                      {"macAddress": mac,
+                        "nameVendor": vendor,
+                        "channel": chnl,
+                        "Speed": spd,
+                        "Privacy": priv,
+                        "Cipher": cphr,
+                        "Authentication": ath,
+                        "ESSID": essid,
+                        "disp": row('disp').append({
+                          name: client,
+                          "First_time": r.now().inTimezone("+01:00").toEpochTime(),
+                          "values": [{
                               "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
                               "Power": pwr
-                            })}),
-                          d);
-                })}),
-              {"macAddress": mac,
-                "nameVendor": r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN"),
-                "channel": chnl,
-                "Speed": spd,
-                "Privacy": priv,
-                "Cipher": cphr,
-                "Authentication": ath,
-                "ESSID": essid,
-                "disp": row('disp').append({
-                  name: client,
-                  "First_time": r.now().inTimezone("+01:00").toEpochTime(),
-                  "values": [{
-                      "Last_time": r.now().inTimezone("+01:00").toEpochTime(),
-                      "Power": pwr
-                    }]
-                })}));
-    }, {nonAtomic: true, durability: "soft"}).run(conn)
+                            }]
+                        })}));
+            }, {nonAtomic: true, durability: "soft"}), "não faz").run(conn)
             .finally(function () {
               conn.close();
             });
