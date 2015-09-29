@@ -16,7 +16,7 @@ module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath,
     var vendor = r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default(null);
     var lastTime = r.db(self.dbConfig.db)
             .table("DispAp").get(mac)("disp")
-            .filter({name: "Sensor3"})("values")
+            .filter({name: client})("values")
             .map(function (x) {
       return  x.orderBy(r.desc(("Last_time"))).limit(1)("Last_time").nth(0);
     }).nth(0);
