@@ -167,7 +167,7 @@ ServerSocket.prototype.start = function () {
             self.readAllLines(manyLines.slice());
             console.log("I'm done!!");
           });
-        }, 2000);
+        }, 7000);
       } else {
         console.log('filename not provided');
       }
