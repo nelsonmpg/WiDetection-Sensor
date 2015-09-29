@@ -18,8 +18,8 @@ module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath,
             .table("DispAp").get(mac)("disp")
             .filter({name: client})("values")
             .map(function (x) {
-      return  x.orderBy(r.desc(("Last_time"))).limit(1)("Last_time").nth(0);
-    }).nth(0);
+              return  x.orderBy(r.desc(("Last_time"))).limit(1)("Last_time").nth(0);
+            }).nth(0).default(0);
     var atualTime = r.now().inTimezone("+01:00").toEpochTime();
     return r.branch(
             vendor.ne(null).and(lastTime.lt(atualTime.sub(300000))), // 5 minutos
