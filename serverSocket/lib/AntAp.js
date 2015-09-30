@@ -13,7 +13,7 @@ var self = this;
  */
 module.exports.insertAntAp = function (client, mac, pwr, chnl, priv, cphr, ath, essid) {
   r.connect(self.dbData).then(function (conn) {
-    var vendor = r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default(null);
+    var vendor = r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN");
     return r.branch(
             vendor.ne(null),
             r.db(self.dbConfig.db)

@@ -13,7 +13,7 @@ var self = this;
  */
 module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath, essid, spd) {
   r.connect(self.dbData).then(function (conn) {
-    var vendor = r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default(null);
+    var vendor = r.db("Prefix").table("tblPrefix").get(mac.substring(0, 8)).getField("vendor").default("UNKNOWN");
     var lastTime = r.db(self.dbConfig.db)
             .table("DispAp").get(mac)("disp")
             .filter({name: client})("values")
