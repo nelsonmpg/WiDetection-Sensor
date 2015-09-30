@@ -22,7 +22,7 @@ module.exports.insertDispAp = function (client, mac, pwr, chnl, priv, cphr, ath,
             }).nth(0).default(0);
     var atualTime = r.now().inTimezone("+01:00").toEpochTime();
     return r.branch(
-            vendor.ne(null).and(lastTime.lt(atualTime.sub(600))), // 5 minutos
+            vendor.ne(null).and(lastTime.lt(atualTime.sub(600))), // 10 minutos
             r.db(self.dbConfig.db)
             .table("DispAp")
             .get(mac)
