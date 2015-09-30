@@ -198,7 +198,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       var bssid = (typeof valuesHst[5] == "undefined") ? "(notassociated)" : valuesHst[5].substring(0, 17).replace(/(,| |\r\n|\n|\r)/g, "");
       var prob = (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].substring(18);
 
-      var probes = (prob.trim().length == 0) ? [] : prob.replace(/(\r\n|\n|\r)/gm, "").split(",");
+      var probes = (prob.trim().length == 0) ? [] : prob.replace(/(\r\n|\n|\r|\\|\?|\/)/gm, "").split(",");
 
       dispmoveis.insertDispMovel(self.clienteSend, mac, pwr, bssid, probes);
       antdisp.insertAntDisp(self.clienteSend, mac, pwr, bssid);
