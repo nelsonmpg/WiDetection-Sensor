@@ -212,7 +212,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
 
       var chnl = result[3].trim() * 1;
       var spd = result[4].trim() * 1;
-      if (!isNaN(spd) && !isNaN(chnl)) {
+      if (!isNaN(spd) && !isNaN(chnl) && spd != -1) {
         var valuesAp = result.slice();
 
         var mac = valuesAp[0];

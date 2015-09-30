@@ -631,7 +631,7 @@ window.ConfigSiteView = Backbone.View.extend({
   },
   poweroffso: function () {
     var self = this;
-    showInfoMsg(true, '.my-modal', "The system is going poweroff NOW!<br>See you latter!");
+    showInfoMsg(true, '.my-modal', "The system is going down NOW!<br>See you later!");
     modem("GET",
             "/poweroffsystem",
             function (data) {
