@@ -195,14 +195,23 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       var valuesHst = result.slice();
 
       var mac = valuesHst[0];
-      var bssid = (typeof valuesHst[5] == "undefined") ? "(notassociated)" : valuesHst[5].substring(0, 17).replace(/(,| |\r\n|\n|\r)/g, "");
-      var prob = (typeof valuesHst[5] == "undefined") ? "" : valuesHst[5].substring(18);
-
-      var probes = (prob.trim().length == 0) ? [] : prob.replace(/(\r\n|\n|\r|\\|\?|\/|<br>|%)/gm, "").split(",");
+      var bssid = "(notassociated)";
+      var prob = [];
+      var probes = [];
+      if (typeof valuesHst[5] == "undefined") {
+        bssid = valuesHst[5].substring(0, 17).replace(/(,| |\r\n|\n|\r)/g, "");
+        prob = valuesHst[5].substring(18);
+        probes = (prob.trim().length == 0) ? [] : prob.replace(/(\r\n|\n|\r|\\|\?|\/|<br>|%)/gm, "").split(",");
+      }
 
       dispmoveis.insertDispMovel(self.clienteSend, mac, pwr, bssid, probes);
       antdisp.insertAntDisp(self.clienteSend, mac, pwr, bssid);
 
+      valuesHst = null;
+      mac = null;
+      bssid = null;
+      prob = null;
+      probes = null;
     }
   } else if (result.length == 13 || result.length == 14 || result.length == 15) {
     // if de verificacao do tamanho do array < 8
@@ -224,6 +233,12 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
         dispap.insertDispAp(self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid, spd);
         antap.insertAntAp(self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid);
 
+        valuesAp = null;
+        mac = null;
+        priv = null;
+        cphr = null;
+        ath = null;
+        essid = null;
       }
     }
   } // else da verificacao do tamanho do arraymais de 8
