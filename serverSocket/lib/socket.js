@@ -11,6 +11,7 @@ var localTable = [];
 var manyLines = [];
 var fileRead = '/scanNetworks-01.csv';
 var folderroot = "";
+var fsTimeout = null;
 
 /**
  * Configuracao do script que detecta alteracoes no ficheiro retendido 
@@ -158,16 +159,19 @@ ServerSocket.prototype.start = function () {
     if (event === "change" && filename === fileRead.split("/").slice(-1)[0]) {
       if (filename) {
         console.log("Start TimeOut.");
-        setTimeout(function () {
-          console.log('filename provided: ' + filename);
-          manyLines = [];
-          lineReader.eachLine(fileRead, function (line2) {
-            manyLines.push(line2);
-          }).then(function () {
-            self.readAllLines(manyLines.slice());
-            console.log("I'm done!!");
-          });
-        }, 7000);
+        if (!fsTimeout) {
+          fstimeout = setTimeout(function () {
+            console.log('filename provided: ' + filename);
+            manyLines = [];
+            lineReader.eachLine(fileRead, function (line2) {
+              manyLines.push(line2);
+            }).then(function () {
+              self.readAllLines(manyLines.slice());
+              console.log("I'm done!!");
+            });
+            fsTimeout = null;
+          }, 7000);
+        }
       } else {
         console.log('filename not provided');
       }
@@ -196,7 +200,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
 
       var mac = valuesHst[0];
       var bssid = "(notassociated)";
-      var prob = [];
+      var prob = "";
       var probes = [];
       if (typeof valuesHst[5] == "undefined") {
         bssid = valuesHst[5].substring(0, 17).replace(/(,| |\r\n|\n|\r)/g, "");
