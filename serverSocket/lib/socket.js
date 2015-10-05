@@ -202,7 +202,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
     }
     if (pwr != -1 && !isNaN(pwr) && pwr < 10 && pwr > -140) {
       var valuesHst = [];
-      var mac = [];
+      var mac = "";
       var bssid = "(notassociated)";
       var prob = "";
       var probes = [];
@@ -212,7 +212,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       if (typeof valuesHst[5] != "undefined") {
         bssid = valuesHst[5].substring(0, 17).replace(/(,| |\r\n|\n|\r)/g, "");
         prob = valuesHst[5].substring(18);
-        probes = (prob.trim().length == 0) ? [] : prob.replace(/(\r\n|\n|\r|\\|\?|\/|<br>|%)/gm, "").split(",");
+        probes = (prob.trim().length == 0) ? [] : prob.replace(/(\r\n|\n|\r|\\|\?|\/|<br>|%|")/gm, "").split(",");
       }
 
       dispmoveis.insertDispMovel(self.clienteSend, mac, pwr, bssid, probes);
