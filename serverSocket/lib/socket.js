@@ -202,7 +202,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       var bssid = "(notassociated)";
       var prob = "";
       var probes = [];
-      if (typeof valuesHst[5] == "undefined") {
+      if (typeof valuesHst[5] != "undefined") {
         bssid = valuesHst[5].substring(0, 17).replace(/(,| |\r\n|\n|\r)/g, "");
         prob = valuesHst[5].substring(18);
         probes = (prob.trim().length == 0) ? [] : prob.replace(/(\r\n|\n|\r|\\|\?|\/|<br>|%)/gm, "").split(",");
