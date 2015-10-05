@@ -225,9 +225,6 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       probes = null;
     }
   } else if (result.length == 13 || result.length == 14 || result.length == 15) {
-
-//    var pwr = (result.length == 14) ? ((typeof result[7] == "undefined") ? -1 : result[7] * 1) : ((typeof result[8] == "undefined") ? -1 : result[8] * 1);
-//    if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
     var pwr = -1;
     if (result.length == 14) {
       if (typeof result[7] != "undefined") {
@@ -272,11 +269,7 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
             essid = valuesAp[13].trim()
           }
         }
-
-//        var cphr = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim();
-//        var ath = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim();
-//        var essid = (valuesAp.length == 14) ? ( (typeof valuesAp[12] == "undefined") ? "" : valuesAp[12].trim()) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13].trim());
-
+        
         dispap.insertDispAp(self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid, spd);
         antap.insertAntAp(self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid);
 
