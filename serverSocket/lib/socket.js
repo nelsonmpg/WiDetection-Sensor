@@ -193,15 +193,22 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
   // verificacao do tamanho do macaddress recebido
 //  if (result[0].trim().length == 17) {
   if (result.length < 8) {
+//    var pwr = (typeof result[3] == "undefined") ? "" : result[3].trim() * 1;
+//    if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
 
-    var pwr = (typeof result[3] == "undefined") ? "" : result[3].trim() * 1;
-    if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
-      var valuesHst = result.slice();
-
-      var mac = valuesHst[0];
+    var pwr = -1;
+    if (typeof result[3] != "undefined") {
+      pwr = result[3].trim() * 1;
+    }
+    if (pwr != -1 && !isNaN(pwr) && pwr < 10 && pwr > -140) {
+      var valuesHst = [];
+      var mac = [];
       var bssid = "(notassociated)";
       var prob = "";
       var probes = [];
+      valuesHst = result.slice();
+      mac = valuesHst[0];
+
       if (typeof valuesHst[5] != "undefined") {
         bssid = valuesHst[5].substring(0, 17).replace(/(,| |\r\n|\n|\r)/g, "");
         prob = valuesHst[5].substring(18);
@@ -218,21 +225,57 @@ ServerSocket.prototype.sendToDataBase = function (result2) {
       probes = null;
     }
   } else if (result.length == 13 || result.length == 14 || result.length == 15) {
-    // if de verificacao do tamanho do array < 8
 
-    var pwr = (result.length == 14) ? ((typeof result[7] == "undefined") ? -1 : result[7] * 1) : ((typeof result[8] == "undefined") ? -1 : result[8] * 1);
-    if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
+//    var pwr = (result.length == 14) ? ((typeof result[7] == "undefined") ? -1 : result[7] * 1) : ((typeof result[8] == "undefined") ? -1 : result[8] * 1);
+//    if ((pwr * 1) != -1 && !isNaN(pwr) && (pwr * 1) < 10 && (pwr * 1) > -140) {
+    var pwr = -1;
+    if (result.length == 14) {
+      if (typeof result[7] != "undefined") {
+        pwr = result[7] * 1;
+      }
+    } else {
+      if (typeof result[8] != "undefined") {
+        pwr = result[8] * 1;
+      }
+    }
+    if (pwr != -1 && !isNaN(pwr) && pwr < 10 && pwr > -140) {
 
       var chnl = result[3].trim() * 1;
       var spd = result[4].trim() * 1;
       if (!isNaN(spd) && !isNaN(chnl) && spd != -1) {
-        var valuesAp = result.slice();
 
-        var mac = valuesAp[0];
-        var priv = valuesAp[5].trim();
-        var cphr = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim();
-        var ath = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim();
-        var essid = (valuesAp.length == 14) ? ((typeof valuesAp[12] == "undefined") ? "" : valuesAp[12].trim()) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13].trim());
+        var cphr = "";
+        var ath = "";
+        var essid = "";
+        var valuesAp = [];
+        var mac = "";
+        var priv = "";
+
+        valuesAp = result.slice();
+        mac = valuesAp[0];
+        priv = valuesAp[5].trim();
+
+        if (valuesAp.length == 14) {
+          if (typeof valuesAp[6] != "undefined") {
+            if (valuesAp[6].split(",")[0] != "undefined") {
+              cphr = valuesAp[6].split(",")[0].trim();
+            }
+            if (typeof valuesAp[6].split(",")[1] != "undefined") {
+              ath = valuesAp[6].split(",")[1].trim();
+            }
+            essid = valuesAp[12].trim();
+          }
+        } else {
+          cphr = valuesAp[6].trim();
+          ath = valuesAp[7].trim();
+          if (typeof valuesAp[13] != "undefined") {
+            essid = valuesAp[13].trim()
+          }
+        }
+
+//        var cphr = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[0] == "undefined") ? "" : valuesAp[6].split(",")[0].trim()) : valuesAp[6].trim();
+//        var ath = (valuesAp.length == 14) ? ((typeof valuesAp[6] == "undefined") ? "" : (typeof valuesAp[6].split(",")[1] == "undefined") ? "" : valuesAp[6].split(",")[1].trim()) : valuesAp[7].trim();
+//        var essid = (valuesAp.length == 14) ? ( (typeof valuesAp[12] == "undefined") ? "" : valuesAp[12].trim()) : ((typeof valuesAp[13] == "undefined") ? "" : valuesAp[13].trim());
 
         dispap.insertDispAp(self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid, spd);
         antap.insertAntAp(self.clienteSend, mac, pwr, chnl, priv, cphr, ath, essid);
