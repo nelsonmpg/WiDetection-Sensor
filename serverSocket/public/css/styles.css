@@ -13,103 +13,103 @@
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
 
 #div-login-page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10000;
-  background-color: #d2d6de;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background-color: #d2d6de;
 }
 
 .login-box-body, .register-box-body, .register-box > form  {
-  box-shadow: 5px 5px 5px black;
+    box-shadow: 5px 5px 5px black;
 }
 
 .height400 {
-  height: 400px;
+    height: 400px;
 }
 
 .height500 {
-  height: 500px;
+    height: 500px;
 }
 
 .height600 {
-  height: 600px;
+    height: 600px;
 }
 
 .width100 {
-  width: 100%;
+    width: 100%;
 }
 
 .width10p {
-  width: 10px;
+    width: 10px;
 }
 
 .color-red {
-  color: red;
+    color: red;
 }
 
 .color-green {
-  color: green;
+    color: green;
 }
 
 .col-centred {
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
 @media (min-width: 500px) {
-  /* STYLES HERE */
-  #chart1LineActives {
-    height: 300px;
-  }
+    /* STYLES HERE */
+    #chart1LineActives {
+        height: 300px;
+    }
 }
 .navbar {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .bg-status-user {
-  background-color: #d2d6de;
-  width: 100%;
+    background-color: #d2d6de;
+    width: 100%;
 }
 
 table #imgsensor {
-  width: 35px;
-  height: 35px;
-  border: 1px solid black;
-  background-image: url('./../img/wifi60_60.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  border-radius: 5px;
-  display: none;
-  z-index: 2000;
-  cursor: move;
+    width: 35px;
+    height: 35px;
+    border: 1px solid black;
+    background-image: url('./../img/wifi60_60.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    display: none;
+    z-index: 2000;
+    cursor: move;
 }
 
 /* The whole thing */
 .custom-menu {
-  display: none;
-  z-index: 1000;
-  position: absolute;
-  overflow: hidden;
-  border: 1px solid #CCC;
-  white-space: nowrap;
-  font-family: sans-serif;
-  background: #FFF;
-  color: #333;
-  border-radius: 5px;
-  padding: 0;
+    display: none;
+    z-index: 1000;
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid #CCC;
+    white-space: nowrap;
+    font-family: sans-serif;
+    background: #FFF;
+    color: #333;
+    border-radius: 5px;
+    padding: 0;
 }
 
 /* Each of the items in the list */
 .custom-menu li {
-  padding: 8px 12px;
-  cursor: pointer;
-  list-style-type: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    list-style-type: none;
 }
 
 .custom-menu li:hover {
-  background-color: #DEF;
+    background-color: #DEF;
 }
 
 ///////////////////
@@ -117,19 +117,19 @@ table #imgsensor {
 ///////////////////
 
 .rounded-corners {
-  -moz-border-radius: 40px;
-  -webkit-border-radius: 40px;
-  -khtml-border-radius: 40px;
-  border-radius: 40px;
+    -moz-border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -khtml-border-radius: 40px;
+    border-radius: 40px;
 }
 .rounded-corners-top {
-  -moz-border-top-radius: 40px;
-  -webkit-border-radius: 40px;
-  -khtml-border-radius: 40px;
-  border-radius: 40px;
+    -moz-border-top-radius: 40px;
+    -webkit-border-radius: 40px;
+    -khtml-border-radius: 40px;
+    border-radius: 40px;
 }
 .right {
-  float: right;
+    float: right;
 }
 .scrolldown { padding-left:20px; color:#EDECE8; font-size:40px; font-weight:bold; vertical-align:middle;
               text-shadow: #6374AB 2px 2px 2px;
@@ -140,138 +140,138 @@ table #imgsensor {
 
 /* example styles for validation form demo */
 #register-form {
-  background: url("../img/form-fieldset.gif") repeat-x scroll left bottom #F8FDEF;
-  border: 1px solid #DFDCDC;
-  border-radius: 15px 15px 15px 15px;
-  display: inline-block;
-  margin-bottom: 30px;
-  margin-left: 20px;
-  margin-top: 10px;
-  padding-top:10px;
-  width: 350px;
+    background: url("../img/form-fieldset.gif") repeat-x scroll left bottom #F8FDEF;
+    border: 1px solid #DFDCDC;
+    border-radius: 15px 15px 15px 15px;
+    display: inline-block;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    margin-top: 10px;
+    padding-top:10px;
+    width: 350px;
 }
 
 #register-form .fieldgroup {
-  background: url("../img/form-divider.gif") repeat-x scroll left top transparent;
-  display: inline-block;
-  padding: 8px 10px;
-  width: 340px;
+    background: url("../img/form-divider.gif") repeat-x scroll left top transparent;
+    display: inline-block;
+    padding: 8px 10px;
+    width: 340px;
 }
 
 #register-form .fieldgroup label {
-  float: left;
-  padding: 15px 0 0;
-  text-align: right;
-  width: 110px;
+    float: left;
+    padding: 15px 0 0;
+    text-align: right;
+    width: 110px;
 }
 
 #register-form .fieldgroup input, #register-form .fieldgroup textarea, #register-form .fieldgroup select {
-  float: right;
-  margin: 10px 0;
-  height: 25px;
+    float: right;
+    margin: 10px 0;
+    height: 25px;
 }
 
 #register-form .submit {
-  padding: 10px;
-  width: 220px;
-  height: 40px !important;
+    padding: 10px;
+    width: 220px;
+    height: 40px !important;
 }
 
 #register-form .fieldgroup label.error {
-  color: #FB3A3A;
-  display: inline-block;
-  margin: 4px 0 5px 125px;
-  padding: 0;
-  text-align: left;
-  width: 220px;
+    color: #FB3A3A;
+    display: inline-block;
+    margin: 4px 0 5px 125px;
+    padding: 0;
+    text-align: left;
+    width: 220px;
 }
 
 .my-modal {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 100000;
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100000;
 }
 
 .my-modal:before {
-  content:'';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;   
-  background-color: black;
-  filter: alpha(opacity=50);
-  -moz-opacity: 0.5;
-  -khtml-opacity: 0.5;
-  opacity: 0.5;   
+    content:'';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;   
+    background-color: black;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;   
 }
 
 .my-modal > div {
-  left: 20%;
-  top: 20%;
-  width: 60%;
-  background-color: transparent;
+    left: 20%;
+    top: 20%;
+    width: 60%;
+    background-color: transparent;
 }
 
 .onoffswitch {
-  position: relative; width: 90px;
-  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    position: relative; width: 90px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
 .onoffswitch-checkbox {
-  display: none;
+    display: none;
 }
 .onoffswitch-label {
-  display: block; overflow: hidden; cursor: pointer;
-  border: 2px solid #999999; border-radius: 20px;
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
 }
 .onoffswitch-inner {
-  display: block; width: 200%; margin-left: -100%;
-  transition: margin 0.3s ease-in 0s;
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
 }
 .onoffswitch-inner:before, .onoffswitch-inner:after {
-  display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
-  font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-  box-sizing: border-box;
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
 }
 .onoffswitch-inner:before {
-  content: "ON";
-  padding-left: 10px;
-  background-color: #34A7C1; color: #FFFFFF;
+    content: "ON";
+    padding-left: 10px;
+    background-color: #34A7C1; color: #FFFFFF;
 }
 .onoffswitch-inner:after {
-  content: "OFF";
-  padding-right: 10px;
-  background-color: #EEEEEE; color: #999999;
-  text-align: right;
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
 }
 .onoffswitch-switch {
-  display: block; width: 18px; margin: 6px;
-  background: #FFFFFF;
-  position: absolute; top: 0; bottom: 0;
-  right: 56px;
-  border: 2px solid #999999; border-radius: 20px;
-  transition: all 0.3s ease-in 0s; 
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 56px;
+    border: 2px solid #999999; border-radius: 20px;
+    transition: all 0.3s ease-in 0s; 
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-  margin-left: 0;
+    margin-left: 0;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-  right: 0px; 
+    right: 0px; 
 }
 .login-logo img {
-  -webkit-filter: drop-shadow(5px 5px 5px #222);
-  filter:         drop-shadow(5px 5px 5px #222); 
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter:         drop-shadow(5px 5px 5px #222); 
 }
 
 .support .ipt {
-  width: 100%;
-  min-width: 300px;
-  max-width: 400px;
-  -webkit-filter: drop-shadow(2px 2px 2px #0e0e0e);
+    width: 100%;
+    min-width: 300px;
+    max-width: 400px;
+    -webkit-filter: drop-shadow(2px 2px 2px #0e0e0e);
 }
 
 .support img {
@@ -288,11 +288,15 @@ table #imgsensor {
 }​
 
 hr.soften {
-  height: 2px;
-  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
-  background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
-  background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
-  background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
-  border: 0;
-  width: 80%;
+    height: 2px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+    border: 0;
+    width: 80%;
+}
+
+#cmdterminalID, #cmdterminalID .cmd {
+    font-size: 20px;
 }
