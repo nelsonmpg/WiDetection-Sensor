@@ -19,6 +19,10 @@ var socketClient = function (options) {
         self.socket.emit('stdin', command);
     };
 
+    self.getprompt = function (command) {
+        self.socket.emit('prompt', command);
+    };
+    
     self.setResponseListeners = function (socket) {
 
         socket.on('stdout', function (data) {
@@ -35,6 +39,9 @@ var socketClient = function (options) {
         });
         socket.on('disable', function () {
             self.vent.trigger('disable');
+        });
+        socket.on('prompt', function (data) {
+            self.vent.trigger('prompt', data);
         });
 
     };

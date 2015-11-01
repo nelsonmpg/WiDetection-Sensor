@@ -2,6 +2,7 @@
 
 _ = require('underscore');
 var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 
 /**
  * Class do Socket
@@ -54,6 +55,15 @@ ServerSktIo.prototype.init = function () {
 
         socket.on('stdin', function (command) {
             stdin.write(command + "\n") || socket.emit('disable');
+        });
+
+        socket.on('prompt', function (command) {
+            exec(command, function (error, stdout, stderr) {
+                socket.emit('prompt', stdout);
+                if (error !== null) {
+                    console.log('exec error: ' + error);
+                }
+            });
         });
 
         stdin.on('drain', function () {

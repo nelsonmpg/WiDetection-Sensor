@@ -44,6 +44,9 @@ var Router = Backbone.Router.extend({
         self.appEventBus.on('disable', function () {
             self.terminalcmd.terminaldisable();
         });
+        self.appEventBus.on('prompt', function (data) {
+            self.terminalcmd.terminalsetprompt(data);
+        });
 
     },
     showView: function (view, elem, sub) {
