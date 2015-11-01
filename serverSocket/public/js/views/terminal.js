@@ -12,11 +12,12 @@ window.TerminalView = Backbone.View.extend({
             self.socketTerm.setcommand(command);
             self.socketTerm.getprompt();
         }, {
-            history : true,
+            history: true,
             greetings: 'Welcome to the web shell WiDetection',
             prompt: 'WiDetection $ ',
             exit: false
         });
+        self.socketTerm.getprompt();
     },
     terminalstdout: function (data) {
         this.terminal.echo(String(data));
@@ -33,7 +34,7 @@ window.TerminalView = Backbone.View.extend({
     terminaldisable: function () {
         this.terminal.disable();
     },
-    terminalsetprompt : function (data){
+    terminalsetprompt: function (data) {
         this.terminal.set_prompt(data);
     },
     render: function () {
