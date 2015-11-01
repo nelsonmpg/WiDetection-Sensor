@@ -18,8 +18,32 @@ var Router = Backbone.Router.extend({
     configform: undefined,
     loginform: undefined,
     about: undefined,
+    socketclt: null,
     terminalcmd: undefined,
     initialize: function () {
+        var self = this;
+        self.appEventBus = _.extend({}, Backbone.Events);
+        self.socketclt = new socketClient({vent: self.appEventBus});
+
+        // update dos graficos em realtime
+        self.appEventBus.on("updateRealTimeChart", function (data, local, site) {
+            console.log("Event");
+        });
+        self.appEventBus.on('stdout', function (data) {
+            console.log('stdout', data);
+        });
+        self.appEventBus.on('stderr', function (data) {
+            console.log('stderr', data);
+        });
+        self.appEventBus.on('disconnect', function () {
+            console.log('disconnect');
+        });
+        self.appEventBus.on('enable', function () {
+            console.log('enable');
+        });
+        self.appEventBus.on('disable', function () {
+            console.log('disable');
+        });
 
     },
     showView: function (view, elem, sub) {
@@ -55,6 +79,9 @@ var Router = Backbone.Router.extend({
         this.footer = undefined;
         this.loginform = undefined;
         this.terminalcmd = undefined;
+        if (this.socketclt) {
+            this.socketclt.disconnect();
+        }
 
 // linpa todo o conteudo das varias View da pagina web
         $('header').html("");
@@ -85,6 +112,7 @@ var Router = Backbone.Router.extend({
     inicio: function () {
         var self = this;
         self.verificaLogin(function () {
+            self.socketclt.connect();
             self.header = new HeaderView({
                 logo: (window.profile.logo == "") ? "./img/user.png" : window.profile.logo
             });
