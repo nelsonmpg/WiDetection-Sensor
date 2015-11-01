@@ -32,6 +32,7 @@ window.TerminalView = Backbone.View.extend({
         this.terminal.enable();
     },
     terminaldisable: function () {
+        console.log("adsadfdfgasdgf");
         this.terminal.disable();
     },
     terminalsetprompt: function (data) {
