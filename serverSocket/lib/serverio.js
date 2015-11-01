@@ -57,11 +57,6 @@ ServerSktIo.prototype.init = function () {
             stdin.write(command + "\n") || socket.emit('disable');
         });
 
-        socket.on('prompt', function (cmd) {
-            console.log(stdin.write(cmd + "\n"));
-            stdin.write(cmd + "\nprompt\n") || socket.emit('disable');
-        });
-
         stdin.on('drain', function () {
             socket.emit('enable');
         });
