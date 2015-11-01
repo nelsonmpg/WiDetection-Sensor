@@ -10,14 +10,15 @@ window.TerminalView = Backbone.View.extend({
         var self = this;
         self.terminal = $('#cmdterminalID').terminal(function (command) {
             self.socketTerm.setcommand(command);
-            self.socketTerm.setcommand('echo "`whoami`@`hostname`:`pwd` $ "');
+            self.socketTerm.setcommand('echo "`whoami`@`hostname`: [`pwd`] $ "');
         }, {
+            history: true,
             greetings: 'Welcome to the web shell WiDetection',
             prompt: 'WiDetection $ ',
             exit: false
         });
         self.socketTerm.setcommand("cd");
-        self.socketTerm.setcommand('echo "`whoami`@`hostname`:`pwd` $ "');
+        self.socketTerm.setcommand('echo "`whoami`@`hostname`: [`pwd`] $ "');
         $('#cmdterminalID').click();
     },
     terminalstdout: function (data) {
