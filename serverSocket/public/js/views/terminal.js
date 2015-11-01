@@ -1,15 +1,15 @@
 window.TerminalView = Backbone.View.extend({
     terminal: undefined,
-    socket: null,
+    socketTerm: null,
     events: {
     },
-    initialize: function () {
+    initialize: function (skt) {
+        this.socketTerm = skt.socket;
     },
-    init: function (socket) {
+    init: function () {
         var self = this;
-        self.socket = socket;
         self.terminal = $('#cmdterminalID').terminal(function (command, terminal) {
-            self.socket.setcommand(command);
+            self.socketTerm.setcommand(command);
         }, {
             greetings: 'Welcome to the web shell'
             , prompt: 'shell $'
