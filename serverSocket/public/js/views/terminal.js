@@ -17,15 +17,14 @@ window.TerminalView = Backbone.View.extend({
             prompt: 'WiDetection $ ',
             exit: false
         });
+        self.socketTerm.setcommand("cd");
+        self.socketTerm.setcommand('echo "`whoami`@`hostname`:`pwd` $"');
     },
     terminalstdout: function (data) {
-        console.log("---------------------------------------------");
-        console.log(data);
-        
-        if (data.toLowerCase().indexOf("linaro@") >= 0){
+        if (data.toLowerCase().indexOf("linaro@") >= 0) {
             this.terminal.set_prompt(data);
         } else {
-        this.terminal.echo(String(data));            
+            this.terminal.echo(String(data));
         }
 
     },
