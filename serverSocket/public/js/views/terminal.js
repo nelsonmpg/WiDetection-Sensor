@@ -19,8 +19,9 @@ window.TerminalView = Backbone.View.extend({
         });
     },
     terminalstdout: function (data) {
+        console.log("---------------------------------------------");
         console.log(data);
-            this.terminal.echo(String(data));
+        this.terminal.echo(String(data));
     },
     terminalstderr: function (data) {
         this.terminal.error(String(data));
