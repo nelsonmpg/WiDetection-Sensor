@@ -40,9 +40,5 @@ var socketClient = function (options) {
         socket.on('disable', function () {
             self.vent.trigger('disable');
         });
-        socket.on('prompt', function (data) {
-            self.vent.trigger('prompt', data);
-        });
-
     };
 };

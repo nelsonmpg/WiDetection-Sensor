@@ -1,6 +1,7 @@
 window.TerminalView = Backbone.View.extend({
     terminal: undefined,
     socketTerm: null,
+    pwd: false,
     events: {
     },
     initialize: function (skt) {
@@ -20,9 +21,12 @@ window.TerminalView = Backbone.View.extend({
         self.socketTerm.getprompt();
     },
     terminalstdout: function (data) {
-        console.log("----------------------------");
-        console.log(data);
-        this.terminal.echo(String(data));
+        if (this.pwd) {
+            this.terminal.set_prompt(data);
+        } else {
+            this.terminal.echo(String(data));
+        }
+        this.pwd = true;
     },
     terminalstderr: function (data) {
         this.terminal.error(String(data));
@@ -35,9 +39,6 @@ window.TerminalView = Backbone.View.extend({
     },
     terminaldisable: function () {
         this.terminal.disable();
-    },
-    terminalsetprompt: function (data) {
-        this.terminal.set_prompt(data);
     },
     render: function () {
         $(this.el).html(this.template());
