@@ -8,12 +8,12 @@ window.TerminalView = Backbone.View.extend({
     },
     init: function () {
         var self = this;
-        self.terminal = $('#cmdterminalID').terminal(function (command, terminal) {
+        self.terminal = $('#cmdterminalID').terminal(function (command) {
             self.socketTerm.setcommand(command);
         }, {
-            greetings: 'Welcome to the web shell'
-            , prompt: 'shell $'
-            , exit: false
+            greetings: 'Welcome to the web shell WiDetection',
+            prompt: 'WiDetection $> ',
+            exit: false
         });
     },
     terminalstdout: function (data) {
