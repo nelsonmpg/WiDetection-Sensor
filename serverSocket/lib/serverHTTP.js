@@ -9,7 +9,6 @@ var serverIo = require('./serverio');
 var bodyParser = require('body-parser');
 var r = require('rethinkdb');
 var cp = require('child_process');
-var spawn = require('child_process').spawn;
 var ini = require('ini');
 var connectdb = require("./ConnectDb");
 var dbUsers = require('./db.js');

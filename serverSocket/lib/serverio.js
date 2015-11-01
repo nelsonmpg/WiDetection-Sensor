@@ -1,6 +1,7 @@
 /* global module, process */
 
 _ = require('underscore');
+var spawn = require('child_process').spawn;
 
 /**
  * Class do Socket
