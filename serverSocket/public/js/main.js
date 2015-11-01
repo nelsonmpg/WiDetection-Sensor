@@ -30,19 +30,19 @@ var Router = Backbone.Router.extend({
             console.log("Event");
         });
         self.appEventBus.on('stdout', function (data) {
-            console.log('stdout', data);
+            self.terminalcmd.terminalstdout('stdout', data);
         });
         self.appEventBus.on('stderr', function (data) {
-            console.log('stderr', data);
+            self.terminalcmd.terminalstderr('stderr', data);
         });
         self.appEventBus.on('disconnect', function () {
-            console.log('disconnect');
+            self.terminalcmd.terminaldisconnect();
         });
         self.appEventBus.on('enable', function () {
-            console.log('enable');
+            self.terminalcmd.terminalenable();
         });
         self.appEventBus.on('disable', function () {
-            console.log('disable');
+            self.terminalcmd.terminaldisable();
         });
 
     },
