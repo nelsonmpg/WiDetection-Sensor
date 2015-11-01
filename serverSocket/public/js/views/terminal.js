@@ -23,7 +23,7 @@ window.TerminalView = Backbone.View.extend({
     },
     terminalstdout: function (data) {
         if (this.pwd) {
-            this.terminal.set_prompt(data);
+//            this.terminal.set_prompt(data);
         } else {
             this.terminal.echo(String(data));
         }
