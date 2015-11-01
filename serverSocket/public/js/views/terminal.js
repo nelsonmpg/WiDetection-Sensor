@@ -18,7 +18,8 @@ window.TerminalView = Backbone.View.extend({
             prompt: 'WiDetection $ ',
             exit: false
         });
-        self.socketTerm.getprompt();
+        self.socketTerm.setcommand("cd");
+        self.socketTerm.getprompt('echo "`whoami`@`hostname`:`pwd`$"');
     },
     terminalstdout: function (data) {
         if (this.pwd) {
