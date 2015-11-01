@@ -20,6 +20,8 @@ window.TerminalView = Backbone.View.extend({
         self.socketTerm.getprompt();
     },
     terminalstdout: function (data) {
+        console.log("----------------------------");
+        console.log(data);
         this.terminal.echo(String(data));
     },
     terminalstderr: function (data) {
@@ -32,7 +34,6 @@ window.TerminalView = Backbone.View.extend({
         this.terminal.enable();
     },
     terminaldisable: function () {
-        console.log("adsadfdfgasdgf");
         this.terminal.disable();
     },
     terminalsetprompt: function (data) {
