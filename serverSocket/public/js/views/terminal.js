@@ -12,7 +12,6 @@ window.TerminalView = Backbone.View.extend({
             self.socketTerm.setcommand(command);
             self.socketTerm.setcommand('echo "`whoami`@`hostname`:`pwd` $ "');
         }, {
-            history: true,
             greetings: 'Welcome to the web shell WiDetection',
             prompt: 'WiDetection $ ',
             exit: false
