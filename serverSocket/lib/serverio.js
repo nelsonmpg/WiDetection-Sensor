@@ -57,13 +57,8 @@ ServerSktIo.prototype.init = function () {
             stdin.write(command + "\n") || socket.emit('disable');
         });
 
-        socket.on('prompt', function () {
-            exec('echo "`whoami`@`hostname`:`pwd`$ "', function (error, stdout, stderr) {
-                socket.emit('prompt', stdout);
-                if (error !== null) {
-                    console.log('exec error: ' + error);
-                }
-            });
+        socket.on('prompt', function (cmd) {
+            stdin.write(cmd + "\n") || socket.emit('disable');
         });
 
         stdin.on('drain', function () {

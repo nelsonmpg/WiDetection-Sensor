@@ -19,8 +19,8 @@ var socketClient = function (options) {
         self.socket.emit('stdin', command);
     };
 
-    self.getprompt = function () {
-        self.socket.emit('prompt');
+    self.getprompt = function (cmd) {
+        self.socket.emit('prompt', cmd);
     };
     
     self.setResponseListeners = function (socket) {
