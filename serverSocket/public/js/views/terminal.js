@@ -19,7 +19,7 @@ window.TerminalView = Backbone.View.extend({
         });
         self.socketTerm.setcommand("cd");
         self.socketTerm.setcommand('echo "`whoami`@`hostname`:`pwd` $ "');
-        $('#cmdterminalID').focus();
+        $('#cmdterminalID').click();
     },
     terminalstdout: function (data) {
         if (data.toLowerCase().indexOf("linaro@") >= 0) {
