@@ -208,12 +208,6 @@ module.exports.getLastGitUpdate = function (req, res) {
     });
 };
 
-module.exports.executeCommandLine = function (req, res) {
-    cp.exec(req.body.cmd, function (error, stdout, stderr) {
-        res.json(stdout);
-    });
-};
-
 /**
  * Verifica se o ficheiro existe
  * @param {type} file

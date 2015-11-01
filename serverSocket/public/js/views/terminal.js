@@ -12,7 +12,7 @@ window.TerminalView = Backbone.View.extend({
             self.socketTerm.setcommand(command);
         }, {
             greetings: 'Welcome to the web shell WiDetection',
-            prompt: 'WiDetection $> ',
+            prompt: 'WiDetection $ ',
             exit: false
         });
     },

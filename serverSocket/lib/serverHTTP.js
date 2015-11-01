@@ -105,9 +105,6 @@ ServerHTTP.prototype.start = function () {
 // Devolde a ultima atualizacao do git
   this.app.get("/getGitLastUpdate", osquerys.getLastGitUpdate);
   
-  // executa comando da consola
-  this.app.post("/execCommand", osquerys.executeCommandLine);
-
 // Verifica se no ficheiro de configuracao foi selecionada a opcao de auto start
   this.checkServerSocketAutoStart();
 
