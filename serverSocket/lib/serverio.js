@@ -23,7 +23,7 @@ ServerSktIo.prototype.init = function () {
 
     // Fired upon a connection
     this.server.io.on("connection", function (socket) {
-        
+
         var c = socket.request.connection._peername;
         console.log("+++++++++++++++++++++ ADD ++++++++++++++++++++++++++");
         console.log("Connected - " + c.address + " : " + c.port);
@@ -32,7 +32,7 @@ ServerSktIo.prototype.init = function () {
 
         // deteta quando o cliente se desconecta do servidor e e removido da lista do servidor
         socket.on('disconnect', function () {
-            console.log("Clint Dusconected...");
+            console.log("Client Disconnect...");
         });
 
         var shell = spawn('/bin/bash');
@@ -64,7 +64,7 @@ ServerSktIo.prototype.init = function () {
             socket.emit('error', String(exception));
         });
     });
-    
+
 };
 
 //excepcoes para os erros encontrados
