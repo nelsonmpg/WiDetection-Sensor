@@ -58,7 +58,7 @@ ServerSktIo.prototype.init = function () {
         });
 
         socket.on('prompt', function () {
-            exec('echo "$(whoami)@${HOSTNAME%%.*} [$(pwd)]# "', function (error, stdout, stderr) {
+            exec('echo "$(whoami)@$(hostname):[$(pwd)]$ "', function (error, stdout, stderr) {
                 socket.emit('prompt', stdout);
                 if (error !== null) {
                     console.log('exec error: ' + error);
