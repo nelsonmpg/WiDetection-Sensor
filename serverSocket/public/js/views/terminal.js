@@ -1,7 +1,6 @@
 window.TerminalView = Backbone.View.extend({
     terminal: undefined,
     socketTerm: null,
-    pwd: false,
     events: {
     },
     initialize: function (skt) {
@@ -11,23 +10,16 @@ window.TerminalView = Backbone.View.extend({
         var self = this;
         self.terminal = $('#cmdterminalID').terminal(function (command) {
             self.socketTerm.setcommand(command);
-            self.socketTerm.getprompt('echo "`whoami`@`hostname`:`pwd`$"');
+//            self.socketTerm.getprompt('echo "`whoami`@`hostname`:`pwd`$"');
         }, {
             history: true,
             greetings: 'Welcome to the web shell WiDetection',
             prompt: 'WiDetection $ ',
             exit: false
         });
-        self.socketTerm.setcommand("cd");
-        self.socketTerm.getprompt('echo "`whoami`@`hostname`:`pwd`$"');
     },
     terminalstdout: function (data) {
-        if (this.pwd) {
-//            this.terminal.set_prompt(data);
-        } else {
             this.terminal.echo(String(data));
-        }
-        this.pwd = true;
     },
     terminalstderr: function (data) {
         this.terminal.error(String(data));
