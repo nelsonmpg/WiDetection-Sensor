@@ -57,8 +57,8 @@ ServerSktIo.prototype.init = function () {
             stdin.write(command + "\n") || socket.emit('disable');
         });
 
-        socket.on('prompt', function (command) {
-            exec(command, function (error, stdout, stderr) {
+        socket.on('prompt', function () {
+            exec('echo "$(whoami)@${HOSTNAME%%.*} [$(pwd)]# "', function (error, stdout, stderr) {
                 socket.emit('prompt', stdout);
                 if (error !== null) {
                     console.log('exec error: ' + error);

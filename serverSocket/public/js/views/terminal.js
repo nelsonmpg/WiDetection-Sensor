@@ -10,7 +10,7 @@ window.TerminalView = Backbone.View.extend({
         var self = this;
         self.terminal = $('#cmdterminalID').terminal(function (command) {
             self.socketTerm.setcommand(command);
-            self.socketTerm.getprompt('echo "$(whoami)@${HOSTNAME%%.*} [$(pwd)]# "');
+            self.socketTerm.getprompt();
         }, {
             history : true,
             greetings: 'Welcome to the web shell WiDetection',
