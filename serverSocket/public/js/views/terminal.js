@@ -12,11 +12,16 @@ window.TerminalView = Backbone.View.extend({
             self.socketTerm.setcommand(command);
             self.socketTerm.setcommand('echo "`whoami`@`hostname`: [`pwd`] $ "');
         }, {
-            login: f_login,
             history: true,
             greetings: 'Welcome to the web shell WiDetection',
             prompt: 'WiDetection $ ',
             exit: false
+        }).login(function (user, password, callback) {
+            if (user === 'demo' && password === 'demo') {
+                callback('SECRET TOKEN');
+            } else {
+                callback(null);
+            }
         });
         self.socketTerm.setcommand("cd /home/linaro/");
         self.socketTerm.setcommand('echo "`whoami`@`hostname`: [`pwd`] $ "');
@@ -47,11 +52,3 @@ window.TerminalView = Backbone.View.extend({
         return this;
     }
 });
-
-function f_login_response(user, password, callback) {
-    if (user === 'demo' && password === 'demo') {
-        callback('SECRET TOKEN');
-    } else {
-        callback(null);
-    }
-}
