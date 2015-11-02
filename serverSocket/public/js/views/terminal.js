@@ -21,9 +21,6 @@ window.TerminalView = Backbone.View.extend({
         self.socketTerm.setcommand('echo "`whoami`@`hostname`: [`pwd`] $ "');
         self.terminal.active();
         $('#cmdterminalID').focus();
-        self.terminal.terminal("testLogin", {
-        login: true,
-        greetings: "You are authenticated"});
     },
     terminalstdout: function (data) {
         if (data.toLowerCase().indexOf("linaro@") >= 0 || data.toLowerCase().indexOf("root@") >= 0) {
@@ -50,7 +47,3 @@ window.TerminalView = Backbone.View.extend({
         return this;
     }
 });
-
-var testLogin = function (user, pass, callback){
-    alert("Asdsda");
-};
