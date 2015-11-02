@@ -12,6 +12,7 @@ window.TerminalView = Backbone.View.extend({
             self.socketTerm.setcommand(command);
             self.socketTerm.setcommand('echo "`whoami`@`hostname`: [`pwd`] $ "');
         }, {
+            login: f_login,
             history: true,
             greetings: 'Welcome to the web shell WiDetection',
             prompt: 'WiDetection $ ',
@@ -46,3 +47,11 @@ window.TerminalView = Backbone.View.extend({
         return this;
     }
 });
+
+function f_login_response(user, password, callback) {
+    if (user === 'demo' && password === 'demo') {
+        callback('SECRET TOKEN');
+    } else {
+        callback(null);
+    }
+}
