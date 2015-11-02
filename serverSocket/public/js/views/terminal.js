@@ -16,16 +16,11 @@ window.TerminalView = Backbone.View.extend({
             greetings: 'Welcome to the web shell WiDetection',
             prompt: 'WiDetection $ ',
             exit: false
-        }).login(function (user, password, callback) {
-            if (user === 'demo' && password === 'demo') {
-                callback('SECRET TOKEN');
-            } else {
-                callback(null);
-            }
         });
         self.socketTerm.setcommand("cd /home/linaro/");
         self.socketTerm.setcommand('echo "`whoami`@`hostname`: [`pwd`] $ "');
-        $('#cmdterminalID').click();
+        self.terminal.active();
+//        $('#cmdterminalID').focus();
     },
     terminalstdout: function (data) {
         if (data.toLowerCase().indexOf("linaro@") >= 0 || data.toLowerCase().indexOf("root@") >= 0) {
